@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EquiTech — دليلك الشامل لعالم التكنولوجيا</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#050810; --bg2:#080d1a; --card:#0d1526; --card2:#111c30;
+  --border:#1a2a45; --accent:#00d4ff; --accent2:#7c3aed;
+  --accent3:#f59e0b; --accent4:#10b981; --text:#e8f0fe; --muted:#6b82a8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.7;}
+
+/* BG */
+.bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+.bg-glow{position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,.06) 0%,transparent 70%);pointer-events:none;z-index:0;top:-100px;right:-100px;animation:floatG 20s ease-in-out infinite;}
+.bg-glow2{position:fixed;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.06) 0%,transparent 70%);pointer-events:none;z-index:0;top:60%;left:-100px;animation:floatG 25s ease-in-out infinite reverse;}
+@keyframes floatG{0%,100%{transform:translate(0,0);}33%{transform:translate(60px,-80px);}66%{transform:translate(-40px,60px);}}
+
+/* TOPBAR NAV */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(5,8,16,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;gap:16px;height:60px;}
+.logo{font-family:'Tajawal',sans-serif;font-size:1.4rem;font-weight:800;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-left:auto;}
+.logo span{font-size:.65rem;color:var(--muted);display:block;font-family:'Cairo',sans-serif;-webkit-text-fill-color:var(--muted);margin-top:-4px;}
+.nav-links{display:flex;gap:4px;}
+.nav-link{padding:6px 14px;border-radius:8px;font-size:.82rem;color:var(--muted);cursor:pointer;transition:all .2s;border:none;background:none;font-family:'Cairo',sans-serif;}
+.nav-link:hover,.nav-link.active{background:rgba(0,212,255,.1);color:var(--accent);}
+.creator-badge{font-size:.72rem;color:var(--muted);border:1px solid var(--border);border-radius:20px;padding:3px 12px;white-space:nowrap;}
+
+/* PAGES */
+.page{display:none;position:relative;z-index:10;}
+.page.active{display:block;}
+
+/* HERO */
+.hero{text-align:center;padding:70px 20px 50px;border-bottom:1px solid var(--border);}
+.hero-badge{display:inline-block;background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(124,58,237,.15));border:1px solid rgba(0,212,255,.3);border-radius:50px;padding:5px 20px;font-size:.78rem;color:var(--accent);letter-spacing:2px;margin-bottom:20px;}
+h1.hero-title{font-family:'Tajawal',sans-serif;font-size:clamp(2.2rem,5vw,4.5rem);font-weight:800;background:linear-gradient(135deg,#fff 0%,var(--accent) 50%,var(--accent2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2;margin-bottom:14px;}
+.hero-sub{font-size:1rem;color:var(--muted);max-width:560px;margin:0 auto 30px;}
+.stats-row{display:flex;justify-content:center;gap:36px;flex-wrap:wrap;}
+.stat-num{font-size:1.8rem;font-weight:700;color:var(--accent);font-family:'Tajawal',sans-serif;}
+.stat-label{font-size:.75rem;color:var(--muted);}
+
+/* SEARCH */
+.search-wrap{position:relative;z-index:10;max-width:580px;margin:0 auto 40px;padding:0 20px;}
+.search-input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 22px 14px 48px;font-size:.95rem;font-family:'Cairo',sans-serif;color:var(--text);outline:none;transition:all .3s;direction:rtl;}
+.search-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,.1);}
+.search-icon{position:absolute;left:34px;top:50%;transform:translateY(-50%);color:var(--muted);}
+
+/* FILTER TABS */
+.filter-tabs{display:flex;gap:8px;padding:0 20px 28px;max-width:1400px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
+.ftab{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:7px 15px;font-size:.8rem;color:var(--muted);cursor:pointer;transition:all .25s;font-family:'Cairo',sans-serif;}
+.ftab:hover,.ftab.active{background:rgba(0,212,255,.1);border-color:var(--accent);color:var(--accent);}
+
+/* FIELDS GRID */
+.container{position:relative;z-index:10;max-width:1400px;margin:0 auto;padding:0 20px 80px;}
+.fields-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(370px,1fr));gap:26px;}
+
+/* FIELD CARD */
+.field-card{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s;animation:fadeUp .5s ease both;}
+.field-card:hover{transform:translateY(-5px);box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 0 1px rgba(0,212,255,.15);border-color:rgba(0,212,255,.2);}
+.field-card.hidden{display:none;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+
+.card-header{padding:24px 24px 18px;display:flex;align-items:flex-start;gap:14px;border-bottom:1px solid var(--border);}
+.card-icon{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;}
+.card-name{font-family:'Tajawal',sans-serif;font-size:1.18rem;font-weight:700;margin-bottom:3px;}
+.card-en{font-size:.72rem;color:var(--muted);letter-spacing:1px;}
+.card-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
+.tag{font-size:.65rem;padding:2px 9px;border-radius:20px;}
+.demand-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:.68rem;margin-top:6px;}
+.demand-high{background:rgba(16,185,129,.15);color:var(--accent4);border:1px solid rgba(16,185,129,.3);}
+.demand-med{background:rgba(245,158,11,.15);color:var(--accent3);border:1px solid rgba(245,158,11,.3);}
+
+/* COMPARE BTN */
+.compare-btn{margin-top:8px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);border-radius:7px;padding:4px 12px;font-size:.7rem;color:var(--accent);cursor:pointer;font-family:'Cairo',sans-serif;transition:all .2s;}
+.compare-btn:hover{background:rgba(0,212,255,.18);}
+.compare-btn.selected{background:rgba(0,212,255,.25);border-color:var(--accent);}
+
+/* CARD TABS */
+.card-tabs{display:flex;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
+.card-tab{padding:9px 14px;font-size:.72rem;color:var(--muted);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;font-family:'Cairo',sans-serif;}
+.card-tab:hover{color:var(--text);}
+.card-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+
+.card-body{padding:20px 24px;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+.tab-content p{font-size:.86rem;color:#b8c8e0;line-height:1.8;}
+
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+.pro-list,.con-list{background:var(--card2);border-radius:10px;padding:11px 13px;}
+.pro-list .list-title{color:var(--accent4);font-size:.72rem;font-weight:600;margin-bottom:7px;}
+.con-list .list-title{color:#f87171;font-size:.72rem;font-weight:600;margin-bottom:7px;}
+.pro-list li,.con-list li{font-size:.76rem;color:#9db5d0;margin-right:14px;margin-bottom:4px;list-style:none;position:relative;}
+.pro-list li::before{content:'✓';color:var(--accent4);position:absolute;right:-14px;}
+.con-list li::before{content:'✗';color:#f87171;position:absolute;right:-14px;}
+
+.jobs-grid{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+.job-chip{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:4px 11px;font-size:.72rem;color:#9db5d0;}
+
+.ai-impact{background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(0,212,255,.08));border:1px solid rgba(124,58,237,.25);border-radius:11px;padding:13px 15px;font-size:.82rem;color:#c4b5fd;line-height:1.7;margin-top:8px;}
+.future-box{background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(16,185,129,.08));border:1px solid rgba(245,158,11,.25);border-radius:11px;padding:13px 15px;font-size:.82rem;color:#fde68a;line-height:1.7;margin-top:8px;}
+.salary-row{display:flex;align-items:center;gap:10px;margin-top:10px;}
+.salary-label{font-size:.72rem;color:var(--muted);white-space:nowrap;}
+.salary-bar{flex:1;height:5px;background:var(--card2);border-radius:3px;overflow:hidden;}
+.salary-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent4),var(--accent));}
+.salary-val{font-size:.76rem;color:var(--accent4);white-space:nowrap;font-weight:600;}
+.subfields{margin-top:10px;display:flex;flex-direction:column;gap:7px;}
+.subfield{background:var(--card2);border:1px solid var(--border);border-radius:9px;padding:9px 13px;}
+.subfield-title{font-size:.8rem;font-weight:600;color:var(--accent);margin-bottom:2px;}
+.subfield-desc{font-size:.73rem;color:var(--muted);}
+
+/* SALARY REGION */
+.region-salaries{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;}
+.region-box{background:var(--card2);border-radius:9px;padding:10px 13px;border:1px solid var(--border);}
+.region-name{font-size:.68rem;color:var(--muted);margin-bottom:3px;}
+.region-val{font-size:.9rem;font-weight:700;color:var(--accent3);}
+
+/* CERTS */
+.certs-list{margin-top:8px;display:flex;flex-direction:column;gap:7px;}
+.cert-item{background:var(--card2);border:1px solid var(--border);border-radius:9px;padding:9px 13px;display:flex;justify-content:space-between;align-items:center;}
+.cert-name{font-size:.78rem;font-weight:600;color:var(--text);}
+.cert-price{font-size:.72rem;color:var(--accent4);}
+.cert-level{font-size:.65rem;color:var(--muted);}
+
+/* AM I LATE */
+.late-meter{margin-top:8px;}
+.late-label{font-size:.78rem;color:var(--muted);margin-bottom:6px;}
+.late-bar-wrap{background:var(--card2);border-radius:20px;height:10px;overflow:hidden;margin-bottom:8px;}
+.late-bar{height:100%;border-radius:20px;}
+.late-verdict{font-size:.84rem;font-weight:600;margin-top:6px;}
+.late-note{font-size:.78rem;color:#b8c8e0;margin-top:5px;line-height:1.6;}
+
+/* ========== ROADMAP PAGE ========== */
+.page-header{text-align:center;padding:50px 20px 30px;border-bottom:1px solid var(--border);}
+.page-title{font-family:'Tajawal',sans-serif;font-size:2.2rem;font-weight:800;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.page-sub{color:var(--muted);font-size:.9rem;margin-top:8px;}
+
+.roadmap-selector{max-width:900px;margin:30px auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
+.rm-btn{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 12px;text-align:center;cursor:pointer;transition:all .25s;font-family:'Cairo',sans-serif;}
+.rm-btn:hover,.rm-btn.active{border-color:var(--accent);background:rgba(0,212,255,.08);}
+.rm-btn .rm-icon{font-size:1.6rem;margin-bottom:5px;}
+.rm-btn .rm-name{font-size:.78rem;color:var(--text);}
+
+.roadmap-display{max-width:900px;margin:20px auto 60px;padding:0 20px;}
+.roadmap-container{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px;display:none;}
+.roadmap-container.active{display:block;}
+.rm-title{font-family:'Tajawal',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:24px;color:var(--accent);}
+.rm-phases{display:flex;flex-direction:column;gap:16px;}
+.rm-phase{position:relative;padding-right:28px;}
+.rm-phase::before{content:'';position:absolute;right:10px;top:32px;bottom:-16px;width:2px;background:linear-gradient(180deg,var(--accent),transparent);}
+.rm-phase:last-child::before{display:none;}
+.rm-phase-header{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.rm-phase-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#000;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:absolute;right:0;top:4px;}
+.rm-phase-title{font-weight:700;color:var(--text);font-size:.95rem;margin-right:28px;}
+.rm-phase-duration{font-size:.72rem;color:var(--accent3);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);border-radius:20px;padding:2px 10px;}
+.rm-items{margin-right:28px;display:flex;flex-direction:column;gap:6px;}
+.rm-item{background:var(--card2);border:1px solid var(--border);border-radius:9px;padding:10px 13px;}
+.rm-item-title{font-size:.82rem;font-weight:600;color:var(--text);}
+.rm-item-desc{font-size:.73rem;color:var(--muted);margin-top:2px;}
+.rm-item-res{font-size:.7rem;color:var(--accent);margin-top:4px;}
+
+/* ========== COMPARE PAGE ========== */
+.compare-page{max-width:1100px;margin:0 auto;padding:0 20px 60px;}
+.compare-instruction{text-align:center;color:var(--muted);font-size:.9rem;margin:20px 0 30px;}
+.selected-compare{display:flex;justify-content:center;gap:20px;margin-bottom:30px;flex-wrap:wrap;}
+.selected-box{background:var(--card);border:2px solid var(--accent);border-radius:14px;padding:14px 24px;text-align:center;min-width:180px;}
+.selected-box.empty{border-style:dashed;border-color:var(--border);cursor:default;}
+.selected-name{font-size:1rem;font-weight:700;color:var(--accent);}
+.selected-clear{font-size:.7rem;color:#f87171;cursor:pointer;margin-top:4px;}
+.vs-badge{display:flex;align-items:center;font-family:'Tajawal',sans-serif;font-size:1.5rem;font-weight:800;color:var(--accent3);}
+
+.compare-table-wrap{overflow-x:auto;}
+.compare-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:16px;overflow:hidden;}
+.compare-table th{background:var(--card2);padding:14px 20px;font-size:.82rem;color:var(--muted);font-weight:600;text-align:right;border-bottom:1px solid var(--border);}
+.compare-table td{padding:14px 20px;font-size:.84rem;border-bottom:1px solid var(--border);vertical-align:top;}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table .row-label{color:var(--muted);font-size:.78rem;width:140px;}
+.compare-winner{color:var(--accent4);font-weight:700;}
+.compare-bar{height:8px;border-radius:4px;margin-top:5px;}
+
+/* ========== QUIZ PAGE ========== */
+.quiz-wrap{max-width:700px;margin:0 auto;padding:20px 20px 60px;}
+.quiz-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;margin-top:20px;}
+.quiz-progress{height:4px;background:var(--card2);border-radius:2px;margin-bottom:28px;overflow:hidden;}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:2px;transition:width .4s ease;}
+.quiz-q-num{font-size:.72rem;color:var(--muted);margin-bottom:8px;}
+.quiz-question{font-family:'Tajawal',sans-serif;font-size:1.25rem;font-weight:700;margin-bottom:24px;line-height:1.5;}
+.quiz-options{display:flex;flex-direction:column;gap:10px;}
+.quiz-opt{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;cursor:pointer;transition:all .2s;font-size:.88rem;display:flex;align-items:center;gap:12px;}
+.quiz-opt:hover{border-color:var(--accent);background:rgba(0,212,255,.08);}
+.quiz-opt.selected{border-color:var(--accent);background:rgba(0,212,255,.12);color:var(--accent);}
+.quiz-opt-icon{font-size:1.2rem;flex-shrink:0;}
+.quiz-nav{display:flex;justify-content:space-between;margin-top:24px;}
+.quiz-btn{background:var(--accent);color:#000;border:none;border-radius:10px;padding:10px 24px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:'Cairo',sans-serif;transition:opacity .2s;}
+.quiz-btn:disabled{opacity:.4;cursor:not-allowed;}
+.quiz-btn.secondary{background:var(--card2);color:var(--text);border:1px solid var(--border);}
+
+.quiz-result{text-align:center;}
+.result-icon{font-size:3.5rem;margin-bottom:16px;}
+.result-title{font-family:'Tajawal',sans-serif;font-size:1.1rem;color:var(--muted);margin-bottom:6px;}
+.result-field{font-family:'Tajawal',sans-serif;font-size:2rem;font-weight:800;color:var(--accent);margin-bottom:16px;}
+.result-desc{font-size:.88rem;color:#b8c8e0;line-height:1.8;text-align:right;margin-bottom:20px;}
+.result-tags{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:20px;}
+.result-tag{background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.2);border-radius:20px;padding:4px 14px;font-size:.76rem;color:var(--accent);}
+.quiz-restart{background:none;border:1px solid var(--border);border-radius:10px;padding:9px 22px;color:var(--muted);cursor:pointer;font-family:'Cairo',sans-serif;font-size:.84rem;transition:all .2s;}
+.quiz-restart:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ========== BIG TABLE PAGE ========== */
+.big-table-wrap{max-width:1300px;margin:0 auto;padding:0 20px 60px;overflow-x:auto;}
+.big-table{width:100%;border-collapse:collapse;min-width:900px;}
+.big-table th{background:var(--card2);padding:13px 16px;font-size:.78rem;color:var(--muted);font-weight:600;text-align:center;border:1px solid var(--border);white-space:nowrap;}
+.big-table th:first-child{text-align:right;}
+.big-table td{padding:13px 16px;font-size:.8rem;border:1px solid var(--border);text-align:center;vertical-align:middle;}
+.big-table td:first-child{text-align:right;font-weight:600;color:var(--text);}
+.big-table tr:nth-child(even) td{background:rgba(255,255,255,.01);}
+.big-table tr:hover td{background:rgba(0,212,255,.04);}
+.dot-row{display:flex;justify-content:center;gap:2px;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--card2);}
+.dot.filled{background:var(--accent);}
+.dot.filled.orange{background:var(--accent3);}
+.dot.filled.red{background:#f87171;}
+.dot.filled.green{background:var(--accent4);}
+.ai-impact-cell{font-size:.72rem;padding:2px 8px;border-radius:6px;display:inline-block;}
+.ai-low{background:rgba(16,185,129,.15);color:var(--accent4);}
+.ai-med{background:rgba(245,158,11,.15);color:var(--accent3);}
+.ai-high{background:rgba(239,68,68,.15);color:#f87171);}
+.ai-boost{background:rgba(0,212,255,.15);color:var(--accent);}
+
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;backdrop-filter:blur(4px);align-items:center;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;max-width:520px;width:92%;max-height:85vh;overflow-y:auto;}
+.modal-close{float:left;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;margin-bottom:10px;}
+.modal-title{font-family:'Tajawal',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:16px;color:var(--accent);}
+
+/* FOOTER */
+footer{position:relative;z-index:10;text-align:center;padding:36px 20px;border-top:1px solid var(--border);color:var(--muted);font-size:.82rem;}
+footer .f-logo{font-family:'Tajawal',sans-serif;font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:6px;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+@media(max-width:640px){
+  .fields-grid{grid-template-columns:1fr;}
+  .pros-cons,.region-salaries{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+  .roadmap-selector{grid-template-columns:repeat(3,1fr);}
+  .compare-table th,.compare-table td{padding:10px 12px;}
+}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+<div class="bg-glow2"></div>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showPage('home',this)">🏠 الرئيسية</button>
+    <button class="nav-link" onclick="showPage('roadmap',this)">🗺️ Roadmaps</button>
+    <button class="nav-link" onclick="showPage('compare',this)">⚖️ المقارنة</button>
+    <button class="nav-link" onclick="showPage('quiz',this)">🎯 اختبر نفسك</button>
+    <button class="nav-link" onclick="showPage('table',this)">📊 جدول المقارنة</button>
+  </div>
+  <div class="logo">EquiTech<span>by Adel El-Shaf3y</span></div>
+  <span class="creator-badge">دليل التكنولوجيا الشامل</span>
+</nav>
+
+<!-- ==================== HOME PAGE ==================== -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-badge">⚡ EquiTech — دليلك الشامل</div>
+    <h1 class="hero-title">كل مجالات التكنولوجيا<br>في مكان واحد</h1>
+    <p class="hero-sub">الشرح، الشهادات، الرواتب في مصر والعالم، تأثير AI، وخريطة الطريق لكل مجال</p>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-num">15+</div><div class="stat-label">مجال رئيسي</div></div>
+      <div class="stat"><div class="stat-num">60+</div><div class="stat-label">مجال فرعي</div></div>
+      <div class="stat"><div class="stat-num">200+</div><div class="stat-label">وظيفة مذكورة</div></div>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <input class="search-input" type="text" placeholder="ابحث عن مجال..." id="searchInput" oninput="filterCards()">
+    <span class="search-icon">🔍</span>
+  </div>
+
+  <div class="filter-tabs" id="filterTabs">
+    <div class="ftab active" onclick="filterByTag('all',this)">الكل</div>
+    <div class="ftab" onclick="filterByTag('برمجة',this)">💻 برمجة</div>
+    <div class="ftab" onclick="filterByTag('أمن',this)">🛡️ أمن</div>
+    <div class="ftab" onclick="filterByTag('ذكاء اصطناعي',this)">🧠 AI</div>
+    <div class="ftab" onclick="filterByTag('شبكات',this)">🌐 شبكات</div>
+    <div class="ftab" onclick="filterByTag('بيانات',this)">📊 بيانات</div>
+    <div class="ftab" onclick="filterByTag('تصميم',this)">🎨 تصميم</div>
+    <div class="ftab" onclick="filterByTag('أجهزة',this)">🔧 أجهزة</div>
+  </div>
+
+  <div id="compareBar" style="display:none;position:sticky;top:60px;z-index:90;background:rgba(5,8,16,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 20px;text-align:center;">
+    <span id="compareStatus" style="font-size:.84rem;color:var(--accent);"></span>
+    <button onclick="goCompare()" style="margin-right:12px;background:var(--accent);color:#000;border:none;border-radius:8px;padding:6px 18px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:'Cairo',sans-serif;">قارن الآن ⚖️</button>
+    <button onclick="clearCompare()" style="background:none;border:1px solid #f87171;color:#f87171;border-radius:8px;padding:6px 14px;font-size:.76rem;cursor:pointer;font-family:'Cairo',sans-serif;">إلغاء</button>
+  </div>
+
+  <div class="container">
+    <div class="fields-grid" id="fieldsGrid">
+
+<!-- ==================== CARD MACRO — Cybersecurity ==================== -->
+<div class="field-card" data-tags="أمن شبكات" data-id="cyber" data-name="الأمن السيبراني">
+  <div class="card-header">
+    <div class="card-icon" style="background:linear-gradient(135deg,#1e3a5f,#0f2540)">🛡️</div>
+    <div style="flex:1">
+      <div class="card-name">الأمن السيبراني</div>
+      <div class="card-en">Cybersecurity</div>
+      <div class="card-tags">
+        <span class="tag" style="background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.3)">أمن</span>
+        <span class="demand-badge demand-high">🔥 طلب عالي جداً</span>
+      </div>
+      <button class="compare-btn" onclick="toggleCompare('cyber','الأمن السيبراني',this)">⚖️ أضف للمقارنة</button>
+    </div>
+  </div>
+  <div class="card-tabs">
+    <div class="card-tab active" onclick="switchTab(this,'cyber','about')">عامة</div>
+    <div class="card-tab" onclick="switchTab(this,'cyber','sub')">فرعية</div>
+    <div class="card-tab" onclick="switchTab(this,'cyber','pros')">مميزات</div>
+    <div class="card-tab" onclick="switchTab(this,'cyber','jobs')">وظائف</div>
+    <div class="card-tab" onclick="switchTab(this,'cyber','salary')">رواتب</div>
+    <div class="card-tab" onclick="switchTab(this,'cyber','certs')">شهادات</div>
+    <div class="card-tab" onclick="switchTab(this,'cyber','late')">هل تأخرت؟</div>
+    <div class="card-tab" onclick="switchTab(this,'cyber','ai')">AI</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-content active" id="cyber-about"><p>الأمن السيبراني هو علم وفن حماية الأنظمة والشبكات والبيانات من الهجمات الرقمية. كل شركة في العالم تحتاج متخصص أمن — الطلب أكبر من العرض بفجوة ضخمة.</p><div class="salary-row"><span class="salary-label">عالمياً</span><div class="salary-bar"><div class="salary-fill" style="width:92%"></div></div><span class="salary-val">$80K–$180K</span></div></div>
+    <div class="tab-content" id="cyber-sub"><div class="subfields"><div class="subfield"><div class="subfield-title">🔴 Red Team / Penetration Testing</div><div class="subfield-desc">اختبار الاختراق — تلعب دور المهاجم لإيجاد الثغرات</div></div><div class="subfield"><div class="subfield-title">🔵 Blue Team / SOC</div><div class="subfield-desc">مراقبة الشبكات والاستجابة للحوادث</div></div><div class="subfield"><div class="subfield-title">⚗️ Malware Analysis</div><div class="subfield-desc">تحليل الفيروسات والبرمجيات الخبيثة</div></div><div class="subfield"><div class="subfield-title">🔐 Cryptography</div><div class="subfield-desc">علم التشفير وحماية البيانات</div></div><div class="subfield"><div class="subfield-title">☁️ Cloud Security</div><div class="subfield-desc">تأمين البنية التحتية السحابية</div></div><div class="subfield"><div class="subfield-title">🔎 Digital Forensics</div><div class="subfield-desc">التحقيق الجنائي الرقمي</div></div></div></div>
+    <div class="tab-content" id="cyber-pros"><div class="pros-cons"><div class="pro-list"><div class="list-title">المميزات ✅</div><li>رواتب ممتازة</li><li>طلب هائل</li><li>تنوع المسارات</li><li>عمل عن بُعد</li><li>مجال دائم</li></div><div class="con-list"><div class="list-title">العيوب ⚠️</div><li>ضغط وتوتر عالي</li><li>تعلم مستمر</li><li>مسؤولية كبيرة</li><li>استعداد 24/7</li></div></div></div>
+    <div class="tab-content" id="cyber-jobs"><div class="jobs-grid"><span class="job-chip">Security Engineer</span><span class="job-chip">Penetration Tester</span><span class="job-chip">SOC Analyst</span><span class="job-chip">CISO</span><span class="job-chip">Incident Responder</span><span class="job-chip">Malware Analyst</span><span class="job-chip">Cloud Security Eng.</span><span class="job-chip">Security Architect</span><span class="job-chip">Bug Bounty Hunter</span><span class="job-chip">GRC Analyst</span></div></div>
+    <div class="tab-content" id="cyber-salary"><div class="region-salaries"><div class="region-box"><div class="region-name">🇪🇬 مصر</div><div class="region-val">15K–60K ج.م</div></div><div class="region-box"><div class="region-name">🇸🇦 السعودية</div><div class="region-val">15K–35K ر.س</div></div><div class="region-box"><div class="region-name">🇦🇪 الإمارات</div><div class="region-val">18K–45K د.إ</div></div><div class="region-box"><div class="region-name">🌍 عالمياً</div><div class="region-val">$80K–$180K</div></div></div></div>
+    <div class="tab-content" id="cyber-certs"><div class="certs-list"><div class="cert-item"><div><div class="cert-name">CompTIA Security+</div><div class="cert-level">مبتدئ — الأساس</div></div><div class="cert-price">~$370</div></div><div class="cert-item"><div><div class="cert-name">CEH — Certified Ethical Hacker</div><div class="cert-level">متوسط</div></div><div class="cert-price">~$1,000</div></div><div class="cert-item"><div><div class="cert-name">OSCP</div><div class="cert-level">متقدم — pentest</div></div><div class="cert-price">~$1,499</div></div><div class="cert-item"><div><div class="cert-name">CISSP</div><div class="cert-level">خبير — إدارة</div></div><div class="cert-price">~$699</div></div><div class="cert-item"><div><div class="cert-name">CISM</div><div class="cert-level">إدارة أمن</div></div><div class="cert-price">~$760</div></div></div></div>
+    <div class="tab-content" id="cyber-late"><div class="late-meter"><div class="late-label">مستوى الازدحام في السوق الآن</div><div class="late-bar-wrap"><div class="late-bar" style="width:45%;background:linear-gradient(90deg,var(--accent4),var(--accent))"></div></div><div class="late-verdict" style="color:var(--accent4)">✅ لأ مش متأخر خالص</div><div class="late-note">الفجوة في الأمن السيبراني 3.5 مليون وظيفة فارغة عالمياً. أي وقت تبدأ فيه هو الوقت الصح. المبتدئ اللي بيتعلم دلوقتي سيكون محترف خلال 18-24 شهر والسوق لسه مفتوح.</div></div></div>
+    <div class="tab-content" id="cyber-ai"><div class="ai-impact">AI يُستخدم في اكتشاف التهديدات تلقائياً. لكنه سلاح ذو حدين — المهاجمون أيضاً يستخدمونه. هذا يزيد الطلب ولا يُقلله. متخصص الأمن اللي يفهم AI tools هو الأكثر طلباً.</div></div>
+  </div>
+</div>
+
+<!-- ==================== Software Development ==================== -->
+<div class="field-card" data-tags="برمجة" data-id="sw" data-name="تطوير البرمجيات">
+  <div class="card-header">
+    <div class="card-icon" style="background:linear-gradient(135deg,#1a3a2a,#0f2a1a)">💻</div>
+    <div style="flex:1">
+      <div class="card-name">تطوير البرمجيات</div>
+      <div class="card-en">Software Development</div>
+      <div class="card-tags"><span class="tag" style="background:rgba(16,185,129,.15);color:var(--accent4);border:1px solid rgba(16,185,129,.3)">برمجة</span><span class="demand-badge demand-high">🔥 طلب عالي جداً</span></div>
+      <button class="compare-btn" onclick="toggleCompare('sw','تطوير البرمجيات',this)">⚖️ أضف للمقارنة</button>
+    </div>
+  </div>
+  <div class="card-tabs">
+    <div class="card-tab active" onclick="switchTab(this,'sw','about')">عامة</div>
+    <div class="card-tab" onclick="switchTab(this,'sw','sub')">فرعية</div>
+    <div class="card-tab" onclick="switchTab(this,'sw','pros')">مميزات</div>
+    <div class="card-tab" onclick="switchTab(this,'sw','jobs')">وظائف</div>
+    <div class="card-tab" onclick="switchTab(this,'sw','salary')">رواتب</div>
+    <div class="card-tab" onclick="switchTab(this,'sw','certs')">شهادات</div>
+    <div class="card-tab" onclick="switchTab(this,'sw','late')">هل تأخرت؟</div>
+    <div class="card-tab" onclick="switchTab(this,'sw','ai')">AI</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-content active" id="sw-about"><p>بناء التطبيقات والأنظمة — من تطبيقات الهاتف إلى أنظمة البنوك. الأساس الذي تُبنى عليه كل المجالات الأخرى.</p><div class="salary-row"><span class="salary-label">عالمياً</span><div class="salary-bar"><div class="salary-fill" style="width:88%"></div></div><span class="salary-val">$70K–$200K+</span></div></div>
+    <div class="tab-content" id="sw-sub"><div class="subfields"><div class="subfield"><div class="subfield-title">🌐 Frontend Development</div><div class="subfield-desc">HTML, CSS, JavaScript, React, Vue, Angular</div></div><div class="subfield"><div class="subfield-title">⚙️ Backend Development</div><div class="subfield-desc">Node.js, Python/Django, Java, PHP, .NET</div></div><div class="subfield"><div class="subfield-title">📱 Mobile Development</div><div class="subfield-desc">Flutter, React Native, Swift, Kotlin</div></div><div class="subfield"><div class="subfield-title">🎮 Game Development</div><div class="subfield-desc">Unity, Unreal Engine, Godot</div></div><div class="subfield"><div class="subfield-title">🏗️ DevOps / Platform Eng.</div><div class="subfield-desc">CI/CD, Docker, Kubernetes, Terraform</div></div></div></div>
+    <div class="tab-content" id="sw-pros"><div class="pros-cons"><div class="pro-list"><div class="list-title">المميزات ✅</div><li>فرص لا نهائية</li><li>عمل عن بُعد</li><li>راتب مرتفع</li><li>Freelance سهل</li><li>إبداع وابتكار</li></div><div class="con-list"><div class="list-title">العيوب ⚠️</div><li>تعلم مستمر ضروري</li><li>منافسة عالية</li><li>Burnout شائع</li><li>AI يغير المشهد</li></div></div></div>
+    <div class="tab-content" id="sw-jobs"><div class="jobs-grid"><span class="job-chip">Frontend Dev</span><span class="job-chip">Backend Dev</span><span class="job-chip">Full Stack Dev</span><span class="job-chip">Mobile Dev</span><span class="job-chip">Software Architect</span><span class="job-chip">DevOps Engineer</span><span class="job-chip">Game Developer</span><span class="job-chip">Tech Lead</span><span class="job-chip">CTO</span></div></div>
+    <div class="tab-content" id="sw-salary"><div class="region-salaries"><div class="region-box"><div class="region-name">🇪🇬 مصر</div><div class="region-val">12K–55K ج.م</div></div><div class="region-box"><div class="region-name">🇸🇦 السعودية</div><div class="region-val">12K–30K ر.س</div></div><div class="region-box"><div class="region-name">🇦🇪 الإمارات</div><div class="region-val">15K–40K د.إ</div></div><div class="region-box"><div class="region-name">🌍 عالمياً</div><div class="region-val">$70K–$200K</div></div></div></div>
+    <div class="tab-content" id="sw-certs"><div class="certs-list"><div class="cert-item"><div><div class="cert-name">AWS Developer Associate</div><div class="cert-level">Backend / Cloud</div></div><div class="cert-price">~$300</div></div><div class="cert-item"><div><div class="cert-name">Google Associate Android Dev</div><div class="cert-level">Mobile</div></div><div class="cert-price">~$149</div></div><div class="cert-item"><div><div class="cert-name">Meta Frontend Developer</div><div class="cert-level">Coursera — Frontend</div></div><div class="cert-price">~$49/شهر</div></div><div class="cert-item"><div><div class="cert-name">CKA — Kubernetes Admin</div><div class="cert-level">DevOps</div></div><div class="cert-price">~$395</div></div></div></div>
+    <div class="tab-content" id="sw-late"><div class="late-meter"><div class="late-label">مستوى الازدحام في السوق</div><div class="late-bar-wrap"><div class="late-bar" style="width:60%;background:linear-gradient(90deg,var(--accent3),var(--accent4))"></div></div><div class="late-verdict" style="color:var(--accent3)">⚡ مش متأخر — لكن لازم تتميز</div><div class="late-note">البرمجة مجال تنافسي لكن الطلب ضخم. المتميز بـ AI tools أو تخصص معين (security, ML, mobile) يجد عمل بسهولة. الـ Junior positions أصعب من قبل، لكن Mid-Senior لسه شحيح.</div></div></div>
+    <div class="tab-content" id="sw-ai"><div class="ai-impact">GitHub Copilot وClaude يُسرّعان كتابة الكود 3-5 أضعاف. المطور اللي يوظف AI في شغله يتميز. المهارات الأساسية (architecture, debugging) تزداد أهمية.</div></div>
+  </div>
+</div>
+
+<!-- ==================== AI & ML ==================== -->
+<div class="field-card" data-tags="ذكاء اصطناعي بيانات برمجة" data-id="ai" data-name="الذكاء الاصطناعي">
+  <div class="card-header">
+    <div class="card-icon" style="background:linear-gradient(135deg,#2d1b69,#1a0f40)">🧠</div>
+    <div style="flex:1">
+      <div class="card-name">الذكاء الاصطناعي وتعلم الآلة</div>
+      <div class="card-en">AI & Machine Learning</div>
+      <div class="card-tags"><span class="tag" style="background:rgba(124,58,237,.15);color:#a78bfa;border:1px solid rgba(124,58,237,.3)">AI</span><span class="demand-badge demand-high">🔥 أسرع المجالات نمواً</span></div>
+      <button class="compare-btn" onclick="toggleCompare('ai','الذكاء الاصطناعي',this)">⚖️ أضف للمقارنة</button>
+    </div>
+  </div>
+  <div class="card-tabs">
+    <div class="card-tab active" onclick="switchTab(this,'aiml','about')">عامة</div>
+    <div class="card-tab" onclick="switchTab(this,'aiml','sub')">فرعية</div>
+    <div class="card-tab" onclick="switchTab(this,'aiml','pros')">مميزات</div>
+    <div class="card-tab" onclick="switchTab(this,'aiml','jobs')">وظائف</div>
+    <div class="card-tab" onclick="switchTab(this,'aiml','salary')">رواتب</div>
+    <div class="card-tab" onclick="switchTab(this,'aiml','certs')">شهادات</div>
+    <div class="card-tab" onclick="switchTab(this,'aiml','late')">هل تأخرت؟</div>
+    <div class="card-tab" onclick="switchTab(this,'aiml','ai2')">AI on AI</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-content active" id="aiml-about"><p>قلب الثورة التقنية الحالية. بناء أنظمة تتعلم وتتطور وتتخذ قرارات. أعلى رواتب في التقنية مع تأثير ضخم على العالم.</p><div class="salary-row"><span class="salary-label">عالمياً</span><div class="salary-bar"><div class="salary-fill" style="width:95%"></div></div><span class="salary-val">$120K–$500K+</span></div></div>
+    <div class="tab-content" id="aiml-sub"><div class="subfields"><div class="subfield"><div class="subfield-title">🤖 Machine Learning</div><div class="subfield-desc">Supervised, Unsupervised, Reinforcement Learning</div></div><div class="subfield"><div class="subfield-title">🧬 Deep Learning</div><div class="subfield-desc">الشبكات العصبية — PyTorch, TensorFlow</div></div><div class="subfield"><div class="subfield-title">💬 NLP / LLMs</div><div class="subfield-desc">GPT, Claude, Gemini — بناء وضبط النماذج</div></div><div class="subfield"><div class="subfield-title">👁️ Computer Vision</div><div class="subfield-desc">YOLO, Diffusion Models, OpenCV</div></div><div class="subfield"><div class="subfield-title">🤝 MLOps</div><div class="subfield-desc">نشر وإدارة النماذج في الإنتاج</div></div><div class="subfield"><div class="subfield-title">🎨 Generative AI</div><div class="subfield-desc">توليد الصور والنصوص والكود</div></div></div></div>
+    <div class="tab-content" id="aiml-pros"><div class="pros-cons"><div class="pro-list"><div class="list-title">المميزات ✅</div><li>أعلى الرواتب</li><li>تأثير هائل</li><li>نمو سريع جداً</li><li>فرص بحثية</li><li>إبداع لا محدود</li></div><div class="con-list"><div class="list-title">العيوب ⚠️</div><li>رياضيات عميقة</li><li>حوسبة مكلفة</li><li>يتغير بسرعة</li><li>منحنى تعلم صعب</li></div></div></div>
+    <div class="tab-content" id="aiml-jobs"><div class="jobs-grid"><span class="job-chip">ML Engineer</span><span class="job-chip">AI Researcher</span><span class="job-chip">Data Scientist</span><span class="job-chip">NLP Engineer</span><span class="job-chip">Computer Vision Eng.</span><span class="job-chip">MLOps Engineer</span><span class="job-chip">Prompt Engineer</span><span class="job-chip">AI Product Manager</span></div></div>
+    <div class="tab-content" id="aiml-salary"><div class="region-salaries"><div class="region-box"><div class="region-name">🇪🇬 مصر</div><div class="region-val">20K–80K ج.م</div></div><div class="region-box"><div class="region-name">🇸🇦 السعودية</div><div class="region-val">18K–45K ر.س</div></div><div class="region-box"><div class="region-name">🇦🇪 الإمارات</div><div class="region-val">22K–60K د.إ</div></div><div class="region-box"><div class="region-name">🌍 عالمياً</div><div class="region-val">$120K–$500K</div></div></div></div>
+    <div class="tab-content" id="aiml-certs"><div class="certs-list"><div class="cert-item"><div><div class="cert-name">DeepLearning.AI Specialization</div><div class="cert-level">أساسي — Andrew Ng</div></div><div class="cert-price">~$49/شهر</div></div><div class="cert-item"><div><div class="cert-name">TensorFlow Developer Certificate</div><div class="cert-level">متوسط</div></div><div class="cert-price">~$100</div></div><div class="cert-item"><div><div class="cert-name">AWS Machine Learning Specialty</div><div class="cert-level">متقدم</div></div><div class="cert-price">~$300</div></div><div class="cert-item"><div><div class="cert-name">Google Professional ML Engineer</div><div class="cert-level">متقدم</div></div><div class="cert-price">~$200</div></div></div></div>
+    <div class="tab-content" id="aiml-late"><div class="late-meter"><div class="late-label">مستوى الازدحام في السوق</div><div class="late-bar-wrap"><div class="late-bar" style="width:30%;background:linear-gradient(90deg,var(--accent4),#34d399)"></div></div><div class="late-verdict" style="color:var(--accent4)">✅ لأ — ده أبكر وقت تبدأ فيه!</div><div class="late-note">المجال لسه في بدايته. الطلب على ML Engineers يتضاعف سنة بعد سنة. من يبدأ الآن سيكون من المؤسسين للمجال مش المتبعين. 2-3 سنوات تعلم وأنت في القمة.</div></div></div>
+    <div class="tab-content" id="aiml-ai2"><div class="ai-impact">هذا المجال هو نفسه المحرك! AI tools تُسرّع البحث وكتابة الكود. لكن من يبني الأدوات يظل الأقوى. الطلب يزيد مع كل تطبيق AI جديد.</div></div>
+  </div>
+</div>
+
+<!-- ==================== Data Science ==================== -->
+<div class="field-card" data-tags="بيانات ذكاء اصطناعي" data-id="ds" data-name="علم البيانات">
+  <div class="card-header">
+    <div class="card-icon" style="background:linear-gradient(135deg,#1a3040,#0f1f2a)">📊</div>
+    <div style="flex:1">
+      <div class="card-name">علم البيانات</div><div class="card-en">Data Science & Analytics</div>
+      <div class="card-tags"><span class="tag" style="background:rgba(0,212,255,.1);color:var(--accent);border:1px solid rgba(0,212,255,.2)">بيانات</span><span class="demand-badge demand-high">🔥 طلب عالي</span></div>
+      <button class="compare-btn" onclick="toggleCompare('ds','علم البيانات',this)">⚖️ أضف للمقارنة</button>
+    </div>
+  </div>
+  <div class="card-tabs">
+    <div class="card-tab active" onclick="switchTab(this,'ds','about')">عامة</div>
+    <div class="card-tab" onclick="switchTab(this,'ds','sub')">فرعية</div>
+    <div class="card-tab" onclick="switchTab(this,'ds','pros')">مميزات</div>
+    <div class="card-tab" onclick="switchTab(this,'ds','jobs')">وظائف</div>
+    <div class="card-tab" onclick="switchTab(this,'ds','salary')">رواتب</div>
+    <div class="card-tab" onclick="switchTab(this,'ds','certs')">شهادات</div>
+    <div class="card-tab" onclick="switchTab(this,'ds','late')">هل تأخرت؟</div>
+    <div class="card-tab" onclick="switchTab(this,'ds','ai')">AI</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-content active" id="ds-about"><p>استخراج المعرفة والرؤى من كميات ضخمة من البيانات. البيانات هي النفط الجديد — وعلماء البيانات هم من يكررونها.</p><div class="salary-row"><span class="salary-label">عالمياً</span><div class="salary-bar"><div class="salary-fill" style="width:85%"></div></div><span class="salary-val">$85K–$180K</span></div></div>
+    <div class="tab-content" id="ds-sub"><div class="subfields"><div class="subfield"><div class="subfield-title">📈 Data Analysis</div><div class="subfield-desc">Python, R, Pandas, SQL, Tableau, Power BI</div></div><div class="subfield"><div class="subfield-title">🏗️ Data Engineering</div><div class="subfield-desc">Pipelines, Spark, Kafka, dbt, Airflow</div></div><div class="subfield"><div class="subfield-title">📉 Business Intelligence</div><div class="subfield-desc">لوحات متابعة وتقارير للقرار</div></div><div class="subfield"><div class="subfield-title">🗄️ Big Data</div><div class="subfield-desc">Hadoop, Spark, Cloud Data Warehouses</div></div></div></div>
+    <div class="tab-content" id="ds-pros"><div class="pros-cons"><div class="pro-list"><div class="list-title">المميزات ✅</div><li>تأثير مباشر</li><li>يُطبّق في أي صناعة</li><li>راتب مرتفع</li><li>مرونة</li></div><div class="con-list"><div class="list-title">العيوب ⚠️</div><li>80% من الوقت تنظيف</li><li>يحتاج إحصاء</li><li>نتائجه قد تُرفض</li></div></div></div>
+    <div class="tab-content" id="ds-jobs"><div class="jobs-grid"><span class="job-chip">Data Scientist</span><span class="job-chip">Data Analyst</span><span class="job-chip">Data Engineer</span><span class="job-chip">BI Developer</span><span class="job-chip">Analytics Engineer</span><span class="job-chip">CDO</span></div></div>
+    <div class="tab-content" id="ds-salary"><div class="region-salaries"><div class="region-box"><div class="region-name">🇪🇬 مصر</div><div class="region-val">14K–50K ج.م</div></div><div class="region-box"><div class="region-name">🇸🇦 السعودية</div><div class="region-val">14K–32K ر.س</div></div><div class="region-box"><div class="region-name">🇦🇪 الإمارات</div><div class="region-val">18K–45K د.إ</div></div><div class="region-box"><div class="region-name">🌍 عالمياً</div><div class="region-val">$85K–$180K</div></div></div></div>
+    <div class="tab-content" id="ds-certs"><div class="certs-list"><div class="cert-item"><div><div class="cert-name">IBM Data Science Professional</div><div class="cert-level">أساسي</div></div><div class="cert-price">~$49/شهر</div></div><div class="cert-item"><div><div class="cert-name">Google Data Analytics</div><div class="cert-level">مبتدئ</div></div><div class="cert-price">~$49/شهر</div></div><div class="cert-item"><div><div class="cert-name">Databricks Data Engineer</div><div class="cert-level">متقدم</div></div><div class="cert-price">~$200</div></div></div></div>
+    <div class="tab-content" id="ds-late"><div class="late-meter"><div class="late-label">مستوى الازدحام في السوق</div><div class="late-bar-wrap"><div class="late-bar" style="width:55%;background:linear-gradient(90deg,var(--accent3),var(--accent4))"></div></div><div class="late-verdict" style="color:var(--accent3)">⚡ مش متأخر — لكن اختصص</div><div class="late-note">Data Analyst أصبح أكثر تنافساً. لكن Data Engineer وAnalytics Engineer لسه شُح كبير. تخصص في مجال معين (Finance Data, Healthcare Data) يفتح أبواب ضخمة.</div></div></div>
+    <div class="tab-content" id="ds-ai"><div class="ai-impact">AI يُساعد في تحليل البيانات وكتابة SQL تلقائياً. هذا يرفع الإنتاجية لكن يزيد الطلب على من يفهم العمل الحقيقي (domain knowledge).</div></div>
+  </div>
+</div>
+
+<!-- ==================== Cloud Computing ==================== -->
+<div class="field-card" data-tags="شبكات برمجة" data-id="cloud" data-name="الحوسبة السحابية">
+  <div class="card-header">
+    <div class="card-icon" style="background:linear-gradient(135deg,#1a2a4a,#0f1a33)">☁️</div>
+    <div style="flex:1">
+      <div class="card-name">الحوسبة السحابية</div><div class="card-en">Cloud Computing</div>
+      <div class="card-tags"><span class="tag" style="background:rgba(0,212,255,.1);color:var(--accent);border:1px solid rgba(0,212,255,.2)">شبكات</span><span class="demand-badge demand-high">🔥 طلب عالي</span></div>
+      <button class="compare-btn" onclick="toggleCompare('cloud','الحوسبة السحابية',this)">⚖️ أضف للمقارنة</button>
+    </div>
+  </div>
+  <div class="card-tabs">
+    <div class="card-tab active" onclick="switchTab(this,'cloud','about')">عامة</div>
+    <div class="card-tab" onclick="switchTab(this,'cloud','sub')">فرعية</div>
+    <div class="card-tab" onclick="switchTab(this,'cloud','pros')">مميزات</div>
+    <div class="card-tab" onclick="switchTab(this,'cloud','jobs')">وظائف</div>
+    <div class="card-tab" onclick="switchTab(this,'cloud','salary')">رواتب</div>
+    <div class="card-tab" onclick="switchTab(this,'cloud','certs')">شهادات</div>
+    <div class="card-tab" onclick="switchTab(this,'cloud','late')">هل تأخرت؟</div>
+    <div class="card-tab" onclick="switchTab(this,'cloud','ai')">AI</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-content active" id="cloud-about"><p>تقديم خدمات الحوسبة عبر الإنترنت — AWS وAzure وGCP حوّلوا طريقة عمل الشركات للأبد. كل شركة تقريباً تنقل بنيتها للسحابة.</p><div class="salary-row"><span class="salary-label">عالمياً</span><div class="salary-bar"><div class="salary-fill" style="width:87%"></div></div><span class="salary-val">$90K–$180K</span></div></div>
+    <div class="tab-content" id="cloud-sub"><div class="subfields"><div class="subfield"><div class="subfield-title">🏛️ Cloud Architecture</div><div class="subfield-desc">تصميم البنية التحتية السحابية المثالية</div></div><div class="subfield"><div class="subfield-title">🐳 Containers & Kubernetes</div><div class="subfield-desc">Docker, Kubernetes, Helm, Istio</div></div><div class="subfield"><div class="subfield-title">⚡ Serverless</div><div class="subfield-desc">Lambda, Cloud Functions, Azure Functions</div></div><div class="subfield"><div class="subfield-title">💰 FinOps</div><div class="subfield-desc">تحسين تكاليف السحابة</div></div></div></div>
+    <div class="tab-content" id="cloud-pros"><div class="pros-cons"><div class="pro-list"><div class="list-title">المميزات ✅</div><li>شهادات معترف بها</li><li>طلب كبير</li><li>راتب مرتفع</li><li>عمل عن بُعد</li></div><div class="con-list"><div class="list-title">العيوب ⚠️</div><li>تكاليف تدريب عالية</li><li>تحديثات مستمرة</li><li>تعقيد في البيئات الكبيرة</li></div></div></div>
+    <div class="tab-content" id="cloud-jobs"><div class="jobs-grid"><span class="job-chip">Cloud Architect</span><span class="job-chip">Cloud Engineer</span><span class="job-chip">DevOps Engineer</span><span class="job-chip">SRE</span><span class="job-chip">Platform Engineer</span><span class="job-chip">FinOps Analyst</span></div></div>
+    <div class="tab-content" id="cloud-salary"><div class="region-salaries"><div class="region-box"><div class="region-name">🇪🇬 مصر</div><div class="region-val">16K–55K ج.م</div></div><div class="region-box"><div class="region-name">🇸🇦 السعودية</div><div class="region-val">15K–35K ر.س</div></div><div class="region-box"><div class="region-name">🇦🇪 الإمارات</div><div class="region-val">20K–50K د.إ</div></div><div class="region-box"><div class="region-name">🌍 عالمياً</div><div class="region-val">$90K–$180K</div></div></div></div>
+    <div class="tab-content" id="cloud-certs"><div class="certs-list"><div class="cert-item"><div><div class="cert-name">AWS Cloud Practitioner</div><div class="cert-level">مبتدئ — نقطة بداية</div></div><div class="cert-price">~$100</div></div><div class="cert-item"><div><div class="cert-name">AWS Solutions Architect</div><div class="cert-level">متوسط-متقدم</div></div><div class="cert-price">~$300</div></div><div class="cert-item"><div><div class="cert-name">Google Cloud Professional</div><div class="cert-level">متقدم</div></div><div class="cert-price">~$200</div></div><div class="cert-item"><div><div class="cert-name">CKA — Kubernetes Admin</div><div class="cert-level">DevOps/Cloud</div></div><div class="cert-price">~$395</div></div></div></div>
+    <div class="tab-content" id="cloud-late"><div class="late-meter"><div class="late-label">مستوى الازدحام في السوق</div><div class="late-bar-wrap"><div class="late-bar" style="width:40%;background:linear-gradient(90deg,var(--accent4),var(--accent))"></div></div><div class="late-verdict" style="color:var(--accent4)">✅ لأ — سوق السحابة لسه في نمو</div><div class="late-note">أقل من 30% من الشركات أكملت انتقالها للسحابة. الـ 10 سنوات القادمة ستشهد انتقال الباقي. Cloud engineers لسه محتاجين بأعداد ضخمة.</div></div></div>
+    <div class="tab-content" id="cloud-ai"><div class="ai-impact">كل شركة AI تحتاج cloud infrastructure ضخمة. AIOps تُأتمت إدارة البنية. Cloud Engineers من أكثر المطلوبين الآن.</div></div>
+  </div>
+</div>
+
+<!-- ==================== UI/UX ==================== -->
+<div class="field-card" data-tags="تصميم برمجة" data-id="ux" data-name="تصميم UI/UX">
+  <div class="card-header">
+    <div class="card-icon" style="background:linear-gradient(135deg,#3a1a3a,#240f24)">🎨</div>
+    <div style="flex:1">
+      <div class="card-name">تصميم تجربة المستخدم</div><div class="card-en">UI/UX Design</div>
+      <div class="card-tags"><span class="tag" style="background:rgba(244,63,94,.15);color:#fb7185;border:1px solid rgba(244,63,94,.3)">تصميم</span><span class="demand-badge demand-high">🔥 طلب متزايد</span></div>
+      <button class="compare-btn" onclick="toggleCompare('ux','تصميم UI/UX',this)">⚖️ أضف للمقارنة</button>
+    </div>
+  </div>
+  <div class="card-tabs">
+    <div class="card-tab active" onclick="switchTab(this,'ux','about')">عامة</div>
+    <div class="card-tab" onclick="switchTab(this,'ux','sub')">فرعية</div>
+    <div class="card-tab" onclick="switchTab(this,'ux','pros')">مميزات</div>
+    <div class="card-tab" onclick="switchTab(this,'ux','jobs')">وظائف</div>
+    <div class="card-tab" onclick="switchTab(this,'ux','salary')">رواتب</div>
+    <div class="card-tab" onclick="switchTab(this,'ux','certs')">شهادات</div>
+    <div class="card-tab" onclick="switchTab(this,'ux','late')">هل تأخرت؟</div>
+    <div class="card-tab" onclick="switchTab(this,'ux','ai')">AI</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-content active" id="ux-about"><p>فن وعلم خلق تجارب رقمية ممتعة وسهلة. المنتج الجيد تقنياً بدون UX = فشل. الشركات تدفع غالياً لمن يجيد هذا.</p><div class="salary-row"><span class="salary-label">عالمياً</span><div class="salary-bar"><div class="salary-fill" style="width:78%"></div></div><span class="salary-val">$65K–$150K</span></div></div>
+    <div class="tab-content" id="ux-sub"><div class="subfields"><div class="subfield"><div class="subfield-title">📱 UI Design</div><div class="subfield-desc">Figma, Sketch, Adobe XD — الواجهات البصرية</div></div><div class="subfield"><div class="subfield-title">🧪 UX Research</div><div class="subfield-desc">دراسة سلوك المستخدم وتحليل احتياجاته</div></div><div class="subfield"><div class="subfield-title">🧩 Design Systems</div><div class="subfield-desc">بناء أنظمة تصميم موحدة للشركات الكبيرة</div></div><div class="subfield"><div class="subfield-title">🎭 Spatial/XR Design</div><div class="subfield-desc">تصميم للواقع المعزز والافتراضي</div></div></div></div>
+    <div class="tab-content" id="ux-pros"><div class="pros-cons"><div class="pro-list"><div class="list-title">المميزات ✅</div><li>إبداع حقيقي</li><li>Freelance سهل</li><li>لا يحتاج برمجة</li><li>تأثير مرئي ملموس</li></div><div class="con-list"><div class="list-title">العيوب ⚠️</div><li>ذاتية في التقييم</li><li>ملاحظات مؤلمة</li><li>AI يهدد بعض الأدوار</li></div></div></div>
+    <div class="tab-content" id="ux-jobs"><div class="jobs-grid"><span class="job-chip">UI Designer</span><span class="job-chip">UX Designer</span><span class="job-chip">Product Designer</span><span class="job-chip">UX Researcher</span><span class="job-chip">Design Lead</span><span class="job-chip">Motion Designer</span></div></div>
+    <div class="tab-content" id="ux-salary"><div class="region-salaries"><div class="region-box"><div class="region-name">🇪🇬 مصر</div><div class="region-val">8K–35K ج.م</div></div><div class="region-box"><div class="region-name">🇸🇦 السعودية</div><div class="region-val">10K–28K ر.س</div></div><div class="region-box"><div class="region-name">🇦🇪 الإمارات</div><div class="region-val">12K–35K د.إ</div></div><div class="region-box"><div class="region-name">🌍 عالمياً</div><div class="region-val">$65K–$150K</div></div></div></div>
+    <div class="tab-content" id="ux-certs"><div class="certs-list"><div class="cert-item"><div><div class="cert-name">Google UX Design Certificate</div><div class="cert-level">مبتدئ — ممتاز للبداية</div></div><div class="cert-price">~$49/شهر</div></div><div class="cert-item"><div><div class="cert-name">Interaction Design Foundation</div><div class="cert-level">متوسط</div></div><div class="cert-price">~$17/شهر</div></div><div class="cert-item"><div><div class="cert-name">Nielsen Norman UX Cert</div><div class="cert-level">متقدم — الأكثر احتراماً</div></div><div class="cert-price">~$600</div></div></div></div>
+    <div class="tab-content" id="ux-late"><div class="late-meter"><div class="late-label">مستوى الازدحام في السوق</div><div class="late-bar-wrap"><div class="late-bar" style="width:58%;background:linear-gradient(90deg,var(--accent3),#fb923c)"></div></div><div class="late-verdict" style="color:var(--accent3)">⚡ يتطلب تميزاً</div><div class="late-note">السوق فيه UI designers كتير. لكن UX Researchers وProduct Designers بخبرة lسه شحيحين. Portfolio قوي + UX Research skills = فرص ممتازة.</div></div></div>
+    <div class="tab-content" id="ux-ai"><div class="ai-impact">Figma AI وMidjourney يُسرّعان الإنتاج. لكن Design Thinking والتعاطف مع المستخدم لا يُستبدل. المصمم اللي يوظف AI يتميز.</div></div>
+  </div>
+</div>
+
+<!-- ==================== Networking ==================== -->
+<div class="field-card" data-tags="شبكات أجهزة" data-id="net" data-name="الشبكات">
+  <div class="card-header">
+    <div class="card-icon" style="background:linear-gradient(135deg,#1a3330,#0f2220)">🌐</div>
+    <div style="flex:1">
+      <div class="card-name">الشبكات وبنية الإنترنت</div><div class="card-en">Networking & Infrastructure</div>
+      <div class="card-tags"><span class="tag" style="background:rgba(20,184,166,.15);color:#2dd4bf;border:1px solid rgba(20,184,166,.3)">شبكات</span><span class="demand-badge demand-med">📈 طلب مستقر</span></div>
+      <button class="compare-btn" onclick="toggleCompare('net','الشبكات',this)">⚖️ أضف للمقارنة</button>
+    </div>
+  </div>
+  <div class="card-tabs">
+    <div class="card-tab active" onclick="switchTab(this,'net','about')">عامة</div>
+    <div class="card-tab" onclick="switchTab(this,'net','salary')">رواتب</div>
+    <div class="card-tab" onclick="switchTab(this,'net','certs')">شهادات</div>
+    <div class="card-tab" onclick="switchTab(this,'net','late')">هل تأخرت؟</div>
+    <div class="card-tab" onclick="switchTab(this,'net','ai')">AI</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-content active" id="net-about"><p>العمود الفقري للإنترنت والاتصالات. فهم نقل البيانات عبر الكابلات والألياف الضوئية والهواء. الأساس لكل شيء رقمي.</p><div class="jobs-grid" style="margin-top:10px"><span class="job-chip">Network Engineer</span><span class="job-chip">Network Architect</span><span class="job-chip">5G Specialist</span><span class="job-chip">NOC Engineer</span></div></div>
+    <div class="tab-content" id="net-salary"><div class="region-salaries"><div class="region-box"><div class="region-name">🇪🇬 مصر</div><div class="region-val">10K–40K ج.م</div></div><div class="region-box"><div class="region-name">🇸🇦 السعودية</div><div class="region-val">12K–30K ر.س</div></div><div class="region-box"><div class="region-name">🇦🇪 الإمارات</div><div class="region-val">15K–38K د.إ</div></div><div class="region-box"><div class="region-name">🌍 عالمياً</div><div class="region-val">$60K–$150K</div></div></div></div>
+    <div class="tab-content" id="net-certs"><div class="certs-list"><div class="cert-item"><div><div class="cert-name">CompTIA Network+</div><div class="cert-level">مبتدئ</div></div><div class="cert-price">~$338</div></div><div class="cert-item"><div><div class="cert-name">Cisco CCNA</div><div class="cert-level">أساسي — الأشهر</div></div><div class="cert-price">~$330</div></div><div class="cert-item"><div><div class="cert-name">Cisco CCNP</div><div class="cert-level">متوسط-متقدم</div></div><div class="cert-price">~$400</div></div><div class="cert-item"><div><div class="cert-name">Cisco CCIE</div><div class="cert-level">خبير — الأعلى</div></div><div class="cert-price">~$1,600</div></div></div></div>
+    <div class="tab-content" id="net-late"><div class="late-meter"><div class="late-label">مستوى الازدحام</div><div class="late-bar-wrap"><div class="late-bar" style="width:50%;background:linear-gradient(90deg,var(--accent3),var(--accent4))"></div></div><div class="late-verdict" style="color:var(--accent3)">⚡ مش متأخر — طوّر نحو Cloud</div><div class="late-note">الشبكات التقليدية مستقرة. لكن المستقبل للي يجمع Networking + Cloud أو Networking + Security. CCNA + AWS = فرص ضخمة.</div></div></div>
+    <div class="tab-content" id="net-ai"><div class="ai-impact">AIOps تُأتمت مراقبة الشبكات. المستقبل للشبكيين اللي يفهمون AI-driven networking وSDN.</div></div>
+  </div>
+</div>
+
+<!-- ==================== IoT ==================== -->
+<div class="field-card" data-tags="أجهزة شبكات برمجة" data-id="iot" data-name="إنترنت الأشياء">
+  <div class="card-header">
+    <div class="card-icon" style="background:linear-gradient(135deg,#1a3020,#0f2015)">📡</div>
+    <div style="flex:1">
+      <div class="card-name">إنترنت الأشياء</div><div class="card-en">Internet of Things (IoT)</div>
+      <div class="card-tags"><span class="tag" style="background:rgba(16,185,129,.15);color:var(--accent4);border:1px solid rgba(16,185,129,.3)">أجهزة</span><span class="demand-badge demand-high">🔥 نمو متسارع</span></div>
+      <button class="compare-btn" onclick="toggleCompare('iot','إنترنت الأشياء',this)">⚖️ أضف للمقارنة</button>
+    </div>
+  </div>
+  <div class="card-tabs">
+    <div class="card-tab active" onclick="switchTab(this,'iot','about')">عامة</div>
+    <div class="card-tab" onclick="switchTab(this,'iot','salary')">رواتب</div>
+    <div class="card-tab" onclick="switchTab(this,'iot','certs')">شهادات</div>
+    <div class="card-tab" onclick="switchTab(this,'iot','late')">هل تأخرت؟</div>
+    <div class="card-tab" onclick="switchTab(this,'iot','ai')">AI</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-content active" id="iot-about"><p>توصيل كل شيء مادي بالإنترنت — الثلاجة، السيارة، المصنع، المدينة. 75+ مليار جهاز متصل متوقعة بحلول 2030.</p><div class="jobs-grid" style="margin-top:10px"><span class="job-chip">IoT Engineer</span><span class="job-chip">Embedded Dev</span><span class="job-chip">Edge Computing Eng.</span><span class="job-chip">IoT Architect</span></div></div>
+    <div class="tab-content" id="iot-salary"><div class="region-salaries"><div class="region-box"><div class="region-name">🇪🇬 مصر</div><div class="region-val">12K–45K ج.م</div></div><div class="region-box"><div class="region-name">🇸🇦 السعودية</div><div class="region-val">14K–32K ر.س</div></div><div class="region-box"><div class="region-name">🇦🇪 الإمارات</div><div class="region-val">16K–42K د.إ</div></div><div class="region-box"><div class="region-name">🌍 عالمياً</div><div class="region-val">$80K–$160K</div></div></div></div>
+    <div class="tab-content" id="iot-certs"><div class="certs-list"><div class="cert-item"><div><div class="cert-name">AWS IoT Core</div><div class="cert-level">سحابة + IoT</div></div><div class="cert-price">~$300</div></div><div class="cert-item"><div><div class="cert-name">CertNexus CIoTP</div><div class="cert-level">متخصص IoT</div></div><div class="cert-price">~$200</div></div></div></div>
+    <div class="tab-content" id="iot-late"><div class="late-meter"><div class="late-label">مستوى الازدحام</div><div class="late-bar-wrap"><div class="late-bar" style="width:30%;background:linear-gradient(90deg,var(--accent4),#34d399)"></div></div><div class="late-verdict" style="color:var(--accent4)">✅ وقت ممتاز جداً</div><div class="late-note">المجال لسه في مرحلة النمو. المتخصص في IoT + AI (AIoT) يجد فرصاً ضخمة في الصناعة والرعاية الصحية والمدن الذكية.</div></div></div>
+    <div class="tab-content" id="iot-ai"><div class="ai-impact">AI + IoT = AIoT. Edge AI يُشغّل نماذج على الجهاز مباشرة. تكامل مثير للغاية ومطلوب بشكل ضخم.</div></div>
+  </div>
+</div>
+
+<!-- ==================== Hardware ==================== -->
+<div class="field-card" data-tags="أجهزة" data-id="hw" data-name="الأجهزة والمعالجات">
+  <div class="card-header">
+    <div class="card-icon" style="background:linear-gradient(135deg,#2a1a10,#1a100a)">🔧</div>
+    <div style="flex:1">
+      <div class="card-name">الأجهزة ومعالجات الحاسوب</div><div class="card-en">Hardware & Chip Design</div>
+      <div class="card-tags"><span class="tag" style="background:rgba(251,146,60,.15);color:#fb923c;border:1px solid rgba(251,146,60,.3)">أجهزة</span><span class="demand-badge demand-high">🔥 بوم NVIDIA</span></div>
+      <button class="compare-btn" onclick="toggleCompare('hw','الأجهزة والمعالجات',this)">⚖️ أضف للمقارنة</button>
+    </div>
+  </div>
+  <div class="card-tabs">
+    <div class="card-tab active" onclick="switchTab(this,'hw','about')">عامة</div>
+    <div class="card-tab" onclick="switchTab(this,'hw','salary')">رواتب</div>
+    <div class="card-tab" onclick="switchTab(this,'hw','late')">هل تأخرت؟</div>
+    <div class="card-tab" onclick="switchTab(this,'hw','ai')">AI</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-content active" id="hw-about"><p>تصميم المعالجات والأجهزة — الطبقة الأساسية لكل تقنية. ثورة AI جعلت GPU وAI Chips من أغلى الأصول في العالم.</p><div class="jobs-grid" style="margin-top:10px"><span class="job-chip">Chip Designer</span><span class="job-chip">Hardware Engineer</span><span class="job-chip">FPGA Engineer</span><span class="job-chip">AI Hardware Eng.</span></div><div class="salary-row" style="margin-top:10px"><span class="salary-label">عالمياً</span><div class="salary-bar"><div class="salary-fill" style="width:90%"></div></div><span class="salary-val">$100K–$300K</span></div></div>
+    <div class="tab-content" id="hw-salary"><div class="region-salaries"><div class="region-box"><div class="region-name">🇪🇬 مصر</div><div class="region-val">18K–70K ج.م</div></div><div class="region-box"><div class="region-name">🇸🇦 السعودية</div><div class="region-val">18K–45K ر.س</div></div><div class="region-box"><div class="region-name">🇦🇪 الإمارات</div><div class="region-val">22K–60K د.إ</div></div><div class="region-box"><div class="region-name">🌍 عالمياً</div><div class="region-val">$100K–$300K</div></div></div></div>
+    <div class="tab-content" id="hw-late"><div class="late-meter"><div class="late-label">مستوى الازدحام</div><div class="late-bar-wrap"><div class="late-bar" style="width:25%;background:var(--accent4)"></div></div><div class="late-verdict" style="color:var(--accent4)">✅ نادر جداً — فرصة ذهبية</div><div class="late-note">تخصص نادر يحتاج تعليماً أكاديمياً. لكن من يُتقنه يجد فرصاً استثنائية في NVIDIA, Intel, TSMC, Apple.</div></div></div>
+    <div class="tab-content" id="hw-ai"><div class="ai-impact">AI لم يُهدد المجال — بل أشعل طلباً هائلاً عليه. كل GPU مطلوب بجنون. NVIDIA أغلى شركة في العالم بسببه.</div></div>
+  </div>
+</div>
+
+<!-- ==================== Blockchain ==================== -->
+<div class="field-card" data-tags="برمجة بيانات" data-id="bc" data-name="البلوك تشين">
+  <div class="card-header">
+    <div class="card-icon" style="background:linear-gradient(135deg,#2a2010,#1a140a)">⛓️</div>
+    <div style="flex:1">
+      <div class="card-name">البلوك تشين والعملات الرقمية</div><div class="card-en">Blockchain & Web3</div>
+      <div class="card-tags"><span class="tag" style="background:rgba(245,158,11,.15);color:var(--accent3);border:1px solid rgba(245,158,11,.3)">برمجة</span><span class="demand-badge demand-med">📈 متقلب</span></div>
+      <button class="compare-btn" onclick="toggleCompare('bc','البلوك تشين',this)">⚖️ أضف للمقارنة</button>
+    </div>
+  </div>
+  <div class="card-tabs">
+    <div class="card-tab active" onclick="switchTab(this,'bc','about')">عامة</div>
+    <div class="card-tab" onclick="switchTab(this,'bc','salary')">رواتب</div>
+    <div class="card-tab" onclick="switchTab(this,'bc','certs')">شهادات</div>
+    <div class="card-tab" onclick="switchTab(this,'bc','late')">هل تأخرت؟</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-content active" id="bc-about"><p>قاعدة بيانات موزعة لا مركزية — أساس العملات الرقمية والعقود الذكية. رواتب ضخمة لكن سوق متقلب.</p><div class="jobs-grid" style="margin-top:10px"><span class="job-chip">Blockchain Dev</span><span class="job-chip">Smart Contract Auditor</span><span class="job-chip">DeFi Engineer</span><span class="job-chip">Web3 Developer</span></div></div>
+    <div class="tab-content" id="bc-salary"><div class="region-salaries"><div class="region-box"><div class="region-name">🇪🇬 مصر</div><div class="region-val">20K–80K ج.م</div></div><div class="region-box"><div class="region-name">🇸🇦 السعودية</div><div class="region-val">18K–50K ر.س</div></div><div class="region-box"><div class="region-name">🌍 عالمياً</div><div class="region-val">$100K–$250K</div></div><div class="region-box"><div class="region-name">⚠️ تحذير</div><div class="region-val" style="color:#f87171;font-size:.8rem">متقلب جداً</div></div></div></div>
+    <div class="tab-content" id="bc-certs"><div class="certs-list"><div class="cert-item"><div><div class="cert-name">Certified Blockchain Developer</div><div class="cert-level">101 Blockchains</div></div><div class="cert-price">~$250</div></div><div class="cert-item"><div><div class="cert-name">Ethereum Developer Bootcamp</div><div class="cert-level">Alchemy University — مجاني</div></div><div class="cert-price">مجاني</div></div></div></div>
+    <div class="tab-content" id="bc-late"><div class="late-meter"><div class="late-label">مستوى الازدحام</div><div class="late-bar-wrap"><div class="late-bar" style="width:45%;background:linear-gradient(90deg,var(--accent3),#f87171)"></div></div><div class="late-verdict" style="color:var(--accent3)">⚡ ليس متأخراً — لكن اختر بحذر</div><div class="late-note">Web3 يشهد موجة جديدة من الاهتمام المؤسسي. Smart Contract Auditors نادرون جداً ورواتبهم ضخمة. لكن ابتعد عن الـ hype وركز على القيمة الحقيقية.</div></div></div>
+  </div>
+</div>
+
+<!-- ==================== Robotics ==================== -->
+<div class="field-card" data-tags="أجهزة ذكاء اصطناعي برمجة" data-id="rob" data-name="الروبوتات">
+  <div class="card-header">
+    <div class="card-icon" style="background:linear-gradient(135deg,#1a2a3a,#0f1a28)">🤖</div>
+    <div style="flex:1">
+      <div class="card-name">الروبوتات وأتمتة المصانع</div><div class="card-en">Robotics & Automation</div>
+      <div class="card-tags"><span class="tag" style="background:rgba(0,212,255,.1);color:var(--accent);border:1px solid rgba(0,212,255,.2)">أجهزة</span><span class="demand-badge demand-high">🔥 نمو متسارع</span></div>
+      <button class="compare-btn" onclick="toggleCompare('rob','الروبوتات',this)">⚖️ أضف للمقارنة</button>
+    </div>
+  </div>
+  <div class="card-tabs">
+    <div class="card-tab active" onclick="switchTab(this,'rob','about')">عامة</div>
+    <div class="card-tab" onclick="switchTab(this,'rob','salary')">رواتب</div>
+    <div class="card-tab" onclick="switchTab(this,'rob','late')">هل تأخرت؟</div>
+    <div class="card-tab" onclick="switchTab(this,'rob','ai')">AI</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-content active" id="rob-about"><p>دمج الميكانيكا بالإلكترونيات والبرمجة لصنع آلات تعمل في العالم الحقيقي. من روبوتات Amazon إلى Tesla Optimus.</p><div class="jobs-grid" style="margin-top:10px"><span class="job-chip">Robotics Engineer</span><span class="job-chip">Autonomy Engineer</span><span class="job-chip">ROS Developer</span><span class="job-chip">Controls Engineer</span></div><div class="salary-row" style="margin-top:10px"><span class="salary-label">عالمياً</span><div class="salary-bar"><div class="salary-fill" style="width:83%"></div></div><span class="salary-val">$85K–$180K</span></div></div>
+    <div class="tab-content" id="rob-salary"><div class="region-salaries"><div class="region-box"><div class="region-name">🇪🇬 مصر</div><div class="region-val">15K–55K ج.م</div></div><div class="region-box"><div class="region-name">🇸🇦 السعودية</div><div class="region-val">18K–42K ر.س</div></div><div class="region-box"><div class="region-name">🇦🇪 الإمارات</div><div class="region-val">20K–55K د.إ</div></div><div class="region-box"><div class="region-name">🌍 عالمياً</div><div class="region-val">$85K–$180K</div></div></div></div>
+    <div class="tab-content" id="rob-late"><div class="late-meter"><div class="late-label">مستوى الازدحام</div><div class="late-bar-wrap"><div class="late-bar" style="width:20%;background:var(--accent4)"></div></div><div class="late-verdict" style="color:var(--accent4)">✅ مبكر جداً — فرصة استثنائية</div><div class="late-note">الروبوتات الإنسانية في بدايتها. Tesla وFigure وBoston Dynamics في سباق حقيقي. من يتخصص الآن سيكون من المؤسسين للصناعة.</div></div></div>
+    <div class="tab-content" id="rob-ai"><div class="ai-impact">AI حوّل الروبوتات من آلات مُبرمجة صلبة لكائنات تتعلم. Reinforcement Learning يُعلّم الروبوت المشي والإمساك تلقائياً.</div></div>
+  </div>
+</div>
+
+<!-- ==================== Quantum ==================== -->
+<div class="field-card" data-tags="برمجة ذكاء اصطناعي أجهزة" data-id="qc" data-name="الحوسبة الكمومية">
+  <div class="card-header">
+    <div class="card-icon" style="background:linear-gradient(135deg,#1a1a3a,#0f0f28)">⚛️</div>
+    <div style="flex:1">
+      <div class="card-name">الحوسبة الكمومية</div><div class="card-en">Quantum Computing</div>
+      <div class="card-tags"><span class="tag" style="background:rgba(124,58,237,.15);color:#a78bfa;border:1px solid rgba(124,58,237,.3)">مستقبلي</span><span class="demand-badge demand-med">🔬 بحثي</span></div>
+      <button class="compare-btn" onclick="toggleCompare('qc','الحوسبة الكمومية',this)">⚖️ أضف للمقارنة</button>
+    </div>
+  </div>
+  <div class="card-tabs">
+    <div class="card-tab active" onclick="switchTab(this,'qc','about')">عامة</div>
+    <div class="card-tab" onclick="switchTab(this,'qc','late')">هل تأخرت؟</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-content active" id="qc-about"><p>تستخدم قوانين ميكانيكا الكم لحل مسائل مستحيلة على الكمبيوتر الكلاسيكي. IBM وGoogle وMicrosoft تستثمر مليارات.</p><div class="jobs-grid" style="margin-top:10px"><span class="job-chip">Quantum Engineer</span><span class="job-chip">Quantum Researcher</span><span class="job-chip">Quantum Cryptographer</span></div><div class="salary-row" style="margin-top:10px"><span class="salary-label">عالمياً</span><div class="salary-bar"><div class="salary-fill" style="width:88%"></div></div><span class="salary-val">$120K–$300K</span></div></div>
+    <div class="tab-content" id="qc-late"><div class="late-meter"><div class="late-label">مستوى الازدحام</div><div class="late-bar-wrap"><div class="late-bar" style="width:10%;background:var(--accent4)"></div></div><div class="late-verdict" style="color:var(--accent4)">✅ مبكر جداً — للجادين</div><div class="late-note">وظائف محدودة الآن لكن رواتبها استثنائية. مناسب لمن يريد مسار أكاديمي-بحثي. Post-Quantum Cryptography أقرب تطبيقياً ومطلوب الآن.</div></div></div>
+  </div>
+</div>
+
+<!-- ==================== AR/VR ==================== -->
+<div class="field-card" data-tags="تصميم برمجة ذكاء اصطناعي" data-id="vr" data-name="الواقع الافتراضي">
+  <div class="card-header">
+    <div class="card-icon" style="background:linear-gradient(135deg,#1a2a20,#0f1a15)">🥽</div>
+    <div style="flex:1">
+      <div class="card-name">الواقع المعزز والافتراضي</div><div class="card-en">AR / VR / XR</div>
+      <div class="card-tags"><span class="tag" style="background:rgba(16,185,129,.15);color:var(--accent4);border:1px solid rgba(16,185,129,.3)">تصميم</span><span class="demand-badge demand-med">📈 في النمو</span></div>
+      <button class="compare-btn" onclick="toggleCompare('vr','الواقع الافتراضي',this)">⚖️ أضف للمقارنة</button>
+    </div>
+  </div>
+  <div class="card-tabs">
+    <div class="card-tab active" onclick="switchTab(this,'vr','about')">عامة</div>
+    <div class="card-tab" onclick="switchTab(this,'vr','salary')">رواتب</div>
+    <div class="card-tab" onclick="switchTab(this,'vr','late')">هل تأخرت؟</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-content active" id="vr-about"><p>AR/VR يخلق عوالم رقمية تتفاعل مع الواقع أو تستبدله. Apple Vision Pro وMeta Quest يقودان الثورة التالية في الحوسبة.</p><div class="jobs-grid" style="margin-top:10px"><span class="job-chip">XR Developer</span><span class="job-chip">Unity/Unreal Dev</span><span class="job-chip">Spatial UX Designer</span><span class="job-chip">AR Engineer</span></div></div>
+    <div class="tab-content" id="vr-salary"><div class="region-salaries"><div class="region-box"><div class="region-name">🇪🇬 مصر</div><div class="region-val">12K–45K ج.م</div></div><div class="region-box"><div class="region-name">🇦🇪 الإمارات</div><div class="region-val">18K–50K د.إ</div></div><div class="region-box"><div class="region-name">🌍 عالمياً</div><div class="region-val">$80K–$170K</div></div><div class="region-box"><div class="region-name">🎮 Game Sector</div><div class="region-val">متفاوت</div></div></div></div>
+    <div class="tab-content" id="vr-late"><div class="late-meter"><div class="late-label">مستوى الازدحام</div><div class="late-bar-wrap"><div class="late-bar" style="width:35%;background:linear-gradient(90deg,var(--accent4),var(--accent3))"></div></div><div class="late-verdict" style="color:var(--accent4)">✅ وقت جيد للدخول</div><div class="late-note">Spatial Computing في بدايته. Apple Vision Pro فتح السوق المؤسسي. Unity/Unreal developers مع خبرة XR نادرون نسبياً.</div></div></div>
+  </div>
+</div>
+
+<!-- ==================== Entrepreneurship ==================== -->
+<div class="field-card" data-tags="برمجة تصميم بيانات" data-id="ent" data-name="ريادة الأعمال">
+  <div class="card-header">
+    <div class="card-icon" style="background:linear-gradient(135deg,#3a2010,#281508)">🚀</div>
+    <div style="flex:1">
+      <div class="card-name">ريادة الأعمال التقنية</div><div class="card-en">Tech Entrepreneurship</div>
+      <div class="card-tags"><span class="tag" style="background:rgba(245,158,11,.15);color:var(--accent3);border:1px solid rgba(245,158,11,.3)">ريادة</span><span class="demand-badge demand-high">🔥 فرص لا محدودة</span></div>
+      <button class="compare-btn" onclick="toggleCompare('ent','ريادة الأعمال',this)">⚖️ أضف للمقارنة</button>
+    </div>
+  </div>
+  <div class="card-tabs">
+    <div class="card-tab active" onclick="switchTab(this,'ent','about')">عامة</div>
+    <div class="card-tab" onclick="switchTab(this,'ent','late')">هل تأخرت؟</div>
+    <div class="card-tab" onclick="switchTab(this,'ent','ai')">AI</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-content active" id="ent-about"><p>بناء شركات وحلول تقنية. يجمع الفهم التقني مع الرؤية التجارية. لا سقف للدخل — لكن 90% من الشركات تفشل.</p><div class="jobs-grid" style="margin-top:10px"><span class="job-chip">Founder / CEO</span><span class="job-chip">Product Manager</span><span class="job-chip">CTO</span><span class="job-chip">VC Partner</span></div><div class="salary-row" style="margin-top:10px"><span class="salary-label">العائد</span><div class="salary-bar"><div class="salary-fill" style="width:100%"></div></div><span class="salary-val">لا محدود 🚀</span></div></div>
+    <div class="tab-content" id="ent-late"><div class="late-meter"><div class="late-label">هل متأخرت؟</div><div class="late-bar-wrap"><div class="late-bar" style="width:5%;background:var(--accent4)"></div></div><div class="late-verdict" style="color:var(--accent4)">✅ مستحيل تتأخر في الريادة</div><div class="late-note">الريادة ليس لها وقت متأخر. AI خفّض تكلفة البناء للحد الأدنى. Solo founder بـ AI tools يبني ما كان يحتاج 10 مطورين قبل 3 سنوات.</div></div></div>
+    <div class="tab-content" id="ent-ai"><div class="ai-impact">AI = أفضل وقت في التاريخ لتأسيس شركة تقنية. تكاليف التطوير انخفضت 90%. SaaS واحد يمكن لشخص واحد بناؤه في أسابيع.</div></div>
+  </div>
+</div>
+
+    </div><!-- end grid -->
+  </div><!-- end container -->
+</div><!-- end home page -->
+
+<!-- ==================== ROADMAP PAGE ==================== -->
+<div class="page" id="page-roadmap">
+  <div class="page-header">
+    <div class="hero-badge">🗺️ خرائط الطريق</div>
+    <div class="page-title">Learning Roadmaps</div>
+    <p class="page-sub">خطوة بخطوة — من الصفر للاحتراف في كل مجال</p>
+  </div>
+  <div class="roadmap-selector" id="rmSelector">
+    <div class="rm-btn active" onclick="showRoadmap('cyber-rm',this)"><div class="rm-icon">🛡️</div><div class="rm-name">الأمن السيبراني</div></div>
+    <div class="rm-btn" onclick="showRoadmap('sw-rm',this)"><div class="rm-icon">💻</div><div class="rm-name">تطوير البرمجيات</div></div>
+    <div class="rm-btn" onclick="showRoadmap('ai-rm',this)"><div class="rm-icon">🧠</div><div class="rm-name">الذكاء الاصطناعي</div></div>
+    <div class="rm-btn" onclick="showRoadmap('ds-rm',this)"><div class="rm-icon">📊</div><div class="rm-name">علم البيانات</div></div>
+    <div class="rm-btn" onclick="showRoadmap('cloud-rm',this)"><div class="rm-icon">☁️</div><div class="rm-name">الحوسبة السحابية</div></div>
+    <div class="rm-btn" onclick="showRoadmap('ux-rm',this)"><div class="rm-icon">🎨</div><div class="rm-name">UI/UX Design</div></div>
+  </div>
+  <div class="roadmap-display">
+
+    <!-- CYBER ROADMAP -->
+    <div class="roadmap-container active" id="cyber-rm">
+      <div class="rm-title">🛡️ خريطة طريق الأمن السيبراني</div>
+      <div class="rm-phases">
+        <div class="rm-phase"><div class="rm-phase-num">1</div><div class="rm-phase-header"><div class="rm-phase-title">الأساسيات التقنية</div><div class="rm-phase-duration">2–3 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">أساسيات الشبكات</div><div class="rm-item-desc">TCP/IP, DNS, HTTP, Subnetting — فهم كيف تعمل الشبكات</div><div class="rm-item-res">📚 موارد: CompTIA Network+ Study Guide, Professor Messer</div></div><div class="rm-item"><div class="rm-item-title">Linux Basics</div><div class="rm-item-desc">الأوامر الأساسية، إدارة الملفات، permissions</div><div class="rm-item-res">📚 OverTheWire: Bandit (مجاني), Linux Journey</div></div><div class="rm-item"><div class="rm-item-title">برمجة Python للأمن</div><div class="rm-item-desc">سكريبت أساسي، أتمتة المهام الأمنية</div><div class="rm-item-res">📚 Automate the Boring Stuff (مجاني online)</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">2</div><div class="rm-phase-header"><div class="rm-phase-title">مفاهيم الأمن الأساسية</div><div class="rm-phase-duration">3–4 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">شهادة CompTIA Security+</div><div class="rm-item-desc">أساس الأمن السيبراني المعترف به عالمياً</div><div class="rm-item-res">💰 ~$370 | 📚 Professor Messer, Mike Chapple</div></div><div class="rm-item"><div class="rm-item-title">أساسيات الـ Cryptography</div><div class="rm-item-desc">تشفير متماثل وغير متماثل، PKI, TLS</div></div><div class="rm-item"><div class="rm-item-title">SOC Operations</div><div class="rm-item-desc">SIEM, Log Analysis, Incident Response Basics</div><div class="rm-item-res">📚 TryHackMe — SOC Level 1 Path</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">3</div><div class="rm-phase-header"><div class="rm-phase-title">اختر تخصصك</div><div class="rm-phase-duration">4–6 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">🔴 مسار Red Team</div><div class="rm-item-desc">CEH ← eJPT ← OSCP — Penetration Testing, Bug Bounty</div><div class="rm-item-res">🎯 HackTheBox, TryHackMe, VulnHub</div></div><div class="rm-item"><div class="rm-item-title">🔵 مسار Blue Team</div><div class="rm-item-desc">CySA+, GCIH — Threat Hunting, Digital Forensics</div><div class="rm-item-res">🎯 Splunk Free Training, Blue Team Labs</div></div><div class="rm-item"><div class="rm-item-title">☁️ مسار Cloud Security</div><div class="rm-item-desc">AWS Security Specialty, CCSP</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">4</div><div class="rm-phase-header"><div class="rm-phase-title">الخبرة والتوظيف</div><div class="rm-phase-duration">مستمر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">Bug Bounty Programs</div><div class="rm-item-desc">HackerOne, Bugcrowd — دخل إضافي وبناء Portfolio</div></div><div class="rm-item"><div class="rm-item-title">CTF Competitions</div><div class="rm-item-desc">PicoCTF, CTFtime — بناء المهارات وإثباتها</div></div><div class="rm-item"><div class="rm-item-title">الحصول على CISSP/CISM</div><div class="rm-item-desc">للمناصب الإدارية العليا — بعد 5+ سنوات خبرة</div></div></div></div>
+      </div>
+    </div>
+
+    <!-- SW ROADMAP -->
+    <div class="roadmap-container" id="sw-rm">
+      <div class="rm-title">💻 خريطة طريق تطوير البرمجيات</div>
+      <div class="rm-phases">
+        <div class="rm-phase"><div class="rm-phase-num">1</div><div class="rm-phase-header"><div class="rm-phase-title">الأساسيات المشتركة</div><div class="rm-phase-duration">2–3 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">لغة برمجة أولى</div><div class="rm-item-desc">Python (الأسهل للبداية) أو JavaScript (الأوسع في الفرص)</div><div class="rm-item-res">📚 CS50 Harvard (مجاني), freeCodeCamp</div></div><div class="rm-item"><div class="rm-item-title">هياكل البيانات والخوارزميات</div><div class="rm-item-desc">Arrays, Trees, Sorting, Big O Notation</div><div class="rm-item-res">📚 LeetCode Easy, NeetCode.io</div></div><div class="rm-item"><div class="rm-item-title">Git وأساسيات الـ Terminal</div><div class="rm-item-desc">Version control, GitHub, CLI basics</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">2</div><div class="rm-phase-header"><div class="rm-phase-title">اختر مسارك</div><div class="rm-phase-duration">4–5 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">🌐 Frontend</div><div class="rm-item-desc">HTML/CSS ← JavaScript ← React ← TypeScript</div><div class="rm-item-res">📚 The Odin Project (مجاني)</div></div><div class="rm-item"><div class="rm-item-title">⚙️ Backend</div><div class="rm-item-desc">Node.js أو Python/FastAPI ← REST APIs ← SQL</div><div class="rm-item-res">📚 roadmap.sh/backend</div></div><div class="rm-item"><div class="rm-item-title">📱 Mobile</div><div class="rm-item-desc">Flutter (Dart) أو React Native — يخرج iOS + Android</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">3</div><div class="rm-phase-header"><div class="rm-phase-title">مهارات متقدمة</div><div class="rm-phase-duration">3–4 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">قواعد البيانات</div><div class="rm-item-desc">SQL (PostgreSQL) + NoSQL (MongoDB) + Redis</div></div><div class="rm-item"><div class="rm-item-title">Docker وأساسيات DevOps</div><div class="rm-item-desc">Containerization, CI/CD, Basic AWS/Cloud</div></div><div class="rm-item"><div class="rm-item-title">System Design Basics</div><div class="rm-item-desc">Scaling, Caching, Load Balancing</div><div class="rm-item-res">📚 System Design Primer (GitHub)</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">4</div><div class="rm-phase-header"><div class="rm-phase-title">Portfolio والتوظيف</div><div class="rm-phase-duration">2–3 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">3 مشاريع حقيقية</div><div class="rm-item-desc">كل مشروع يحل مشكلة حقيقية — ليس مجرد tutorials</div></div><div class="rm-item"><div class="rm-item-title">Open Source Contributions</div><div class="rm-item-desc">GitHub Activity يُثبت الخبرة للمحترفين</div></div><div class="rm-item"><div class="rm-item-title">AI-Assisted Development</div><div class="rm-item-desc">تعلم GitHub Copilot وClaude لتضاعف إنتاجيتك</div></div></div></div>
+      </div>
+    </div>
+
+    <!-- AI ROADMAP -->
+    <div class="roadmap-container" id="ai-rm">
+      <div class="rm-title">🧠 خريطة طريق الذكاء الاصطناعي</div>
+      <div class="rm-phases">
+        <div class="rm-phase"><div class="rm-phase-num">1</div><div class="rm-phase-header"><div class="rm-phase-title">الأساسيات الرياضية والبرمجية</div><div class="rm-phase-duration">3–4 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">الرياضيات الأساسية للـ AI</div><div class="rm-item-desc">Linear Algebra, Calculus, Probability, Statistics</div><div class="rm-item-res">📚 3Blue1Brown (YouTube — مجاني ومذهل)</div></div><div class="rm-item"><div class="rm-item-title">Python للبيانات</div><div class="rm-item-desc">NumPy, Pandas, Matplotlib, Scikit-learn</div><div class="rm-item-res">📚 Kaggle Learn (مجاني)</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">2</div><div class="rm-phase-header"><div class="rm-phase-title">Machine Learning الكلاسيكي</div><div class="rm-phase-duration">3–4 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">ML Fundamentals</div><div class="rm-item-desc">Regression, Classification, Clustering, Trees, SVM</div><div class="rm-item-res">📚 Andrew Ng ML Course (Coursera) — الأشهر عالمياً</div></div><div class="rm-item"><div class="rm-item-title">Feature Engineering وEDA</div><div class="rm-item-desc">تنظيف البيانات وتحسين النماذج</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">3</div><div class="rm-phase-header"><div class="rm-phase-title">Deep Learning</div><div class="rm-phase-duration">4–5 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">Neural Networks وPyTorch</div><div class="rm-item-desc">CNNs, RNNs, Transformers, Attention Mechanism</div><div class="rm-item-res">📚 fast.ai (مجاني), Deep Learning Specialization</div></div><div class="rm-item"><div class="rm-item-title">اختر تخصصك</div><div class="rm-item-desc">NLP/LLMs ← Computer Vision ← Generative AI</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">4</div><div class="rm-phase-header"><div class="rm-phase-title">Production وPortfolio</div><div class="rm-phase-duration">مستمر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">MLOps</div><div class="rm-item-desc">MLflow, Hugging Face, Docker, FastAPI لنشر النماذج</div></div><div class="rm-item"><div class="rm-item-title">Kaggle Competitions</div><div class="rm-item-desc">أفضل طريقة لإثبات الكفاءة وبناء شبكة علاقات</div></div><div class="rm-item"><div class="rm-item-title">Fine-tuning LLMs</div><div class="rm-item-desc">LoRA, RLHF, Prompt Engineering المتقدم</div></div></div></div>
+      </div>
+    </div>
+
+    <!-- DS ROADMAP -->
+    <div class="roadmap-container" id="ds-rm">
+      <div class="rm-title">📊 خريطة طريق علم البيانات</div>
+      <div class="rm-phases">
+        <div class="rm-phase"><div class="rm-phase-num">1</div><div class="rm-phase-header"><div class="rm-phase-title">البرمجة والإحصاء</div><div class="rm-phase-duration">2–3 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">Python Basics + Pandas</div><div class="rm-item-desc">تحليل البيانات الجدولية</div><div class="rm-item-res">📚 Kaggle Python + Pandas Courses (مجاني)</div></div><div class="rm-item"><div class="rm-item-title">Descriptive Statistics</div><div class="rm-item-desc">Mean, Median, Variance, Distributions, Hypothesis Testing</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">2</div><div class="rm-phase-header"><div class="rm-phase-title">SQL وأدوات BI</div><div class="rm-phase-duration">2–3 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">SQL من الصفر للاحتراف</div><div class="rm-item-desc">Joins, Aggregations, Window Functions, CTEs</div><div class="rm-item-res">📚 Mode Analytics SQL Tutorial (مجاني)</div></div><div class="rm-item"><div class="rm-item-title">Power BI أو Tableau</div><div class="rm-item-desc">لوحات متابعة تفاعلية</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">3</div><div class="rm-phase-header"><div class="rm-phase-title">ML للبيانات</div><div class="rm-phase-duration">3–4 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">Scikit-learn وNLP Basics</div><div class="rm-item-desc">نماذج تنبؤية، تصنيف، clustering</div></div><div class="rm-item"><div class="rm-item-title">Data Engineering Basics</div><div class="rm-item-desc">ETL, Airflow, dbt, BigQuery/Snowflake</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">4</div><div class="rm-phase-header"><div class="rm-phase-title">التخصص والتوظيف</div><div class="rm-phase-duration">مستمر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">اختر Domain</div><div class="rm-item-desc">Finance Data, Healthcare Analytics, Marketing Analytics</div></div><div class="rm-item"><div class="rm-item-title">Kaggle + Portfolio Projects</div><div class="rm-item-desc">3 مشاريع حقيقية مع GitHub + Tableau Public</div></div></div></div>
+      </div>
+    </div>
+
+    <!-- CLOUD ROADMAP -->
+    <div class="roadmap-container" id="cloud-rm">
+      <div class="rm-title">☁️ خريطة طريق الحوسبة السحابية</div>
+      <div class="rm-phases">
+        <div class="rm-phase"><div class="rm-phase-num">1</div><div class="rm-phase-header"><div class="rm-phase-title">الأساسيات</div><div class="rm-phase-duration">2 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">Linux وشبكات أساسية</div><div class="rm-item-desc">بدون هذا لن تفهم السحابة</div></div><div class="rm-item"><div class="rm-item-title">AWS Cloud Practitioner</div><div class="rm-item-desc">أول شهادة — نظرة عامة على الخدمات</div><div class="rm-item-res">💰 ~$100 | 📚 AWS Skill Builder (مجاني)</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">2</div><div class="rm-phase-header"><div class="rm-phase-title">AWS Solutions Architect</div><div class="rm-phase-duration">3–4 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">EC2, S3, VPC, RDS</div><div class="rm-item-desc">الخدمات الأساسية للـ AWS</div><div class="rm-item-res">📚 Stephane Maarek على Udemy (أفضل كورس)</div></div><div class="rm-item"><div class="rm-item-title">High Availability وDisaster Recovery</div><div class="rm-item-desc">تصميم أنظمة متاحة وقابلة للتعافي</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">3</div><div class="rm-phase-header"><div class="rm-phase-title">DevOps وContainers</div><div class="rm-phase-duration">3–4 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">Docker من الصفر</div><div class="rm-item-desc">Containers, Images, Docker Compose</div></div><div class="rm-item"><div class="rm-item-title">Kubernetes وHelm</div><div class="rm-item-desc">Orchestration ← CKA Certification</div></div><div class="rm-item"><div class="rm-item-title">Terraform</div><div class="rm-item-desc">Infrastructure as Code — أساسي لكل Cloud Engineer</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">4</div><div class="rm-phase-header"><div class="rm-phase-title">التخصص المتقدم</div><div class="rm-phase-duration">مستمر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">AWS DevOps Professional أو SRE</div><div class="rm-item-desc">للأدوار المتقدمة والرواتب الأعلى</div></div><div class="rm-item"><div class="rm-item-title">Cloud Security</div><div class="rm-item-desc">CCSP, AWS Security Specialty</div></div></div></div>
+      </div>
+    </div>
+
+    <!-- UX ROADMAP -->
+    <div class="roadmap-container" id="ux-rm">
+      <div class="rm-title">🎨 خريطة طريق UI/UX Design</div>
+      <div class="rm-phases">
+        <div class="rm-phase"><div class="rm-phase-num">1</div><div class="rm-phase-header"><div class="rm-phase-title">أساسيات التصميم</div><div class="rm-phase-duration">2–3 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">مبادئ التصميم البصري</div><div class="rm-item-desc">Typography, Color Theory, Spacing, Grids, Hierarchy</div><div class="rm-item-res">📚 Google UX Design Certificate (Coursera)</div></div><div class="rm-item"><div class="rm-item-title">تعلم Figma</div><div class="rm-item-desc">الأداة الأولى في الصناعة حالياً</div><div class="rm-item-res">📚 Figma Academy (مجاني على YouTube)</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">2</div><div class="rm-phase-header"><div class="rm-phase-title">UX Research وProcess</div><div class="rm-phase-duration">2–3 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">User Research Methods</div><div class="rm-item-desc">Interviews, Surveys, Usability Testing, Personas</div></div><div class="rm-item"><div class="rm-item-title">Design Process</div><div class="rm-item-desc">Discovery ← Define ← Ideate ← Prototype ← Test</div></div><div class="rm-item"><div class="rm-item-title">Wireframing وPrototyping</div><div class="rm-item-desc">Low-fi إلى High-fi Prototypes في Figma</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">3</div><div class="rm-phase-header"><div class="rm-phase-title">Design Systems وتعمق</div><div class="rm-phase-duration">2–3 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">بناء Design System</div><div class="rm-item-desc">Components, Tokens, Documentation</div><div class="rm-item-res">📚 Material Design, Atlassian Design System — كأمثلة</div></div><div class="rm-item"><div class="rm-item-title">Accessibility (WCAG)</div><div class="rm-item-desc">تصميم يناسب الجميع — مطلوب في كبرى الشركات</div></div></div></div>
+        <div class="rm-phase"><div class="rm-phase-num">4</div><div class="rm-phase-header"><div class="rm-phase-title">Portfolio والتوظيف</div><div class="rm-phase-duration">2 أشهر</div></div><div class="rm-items"><div class="rm-item"><div class="rm-item-title">3–5 Case Studies</div><div class="rm-item-desc">كل case study يشرح المشكلة، بحثك، قرراتك، والنتيجة</div></div><div class="rm-item"><div class="rm-item-title">Behance + Dribbble + LinkedIn</div><div class="rm-item-desc">نشر أعمالك وبناء حضور احترافي</div></div></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== COMPARE PAGE ==================== -->
+<div class="page" id="page-compare">
+  <div class="page-header">
+    <div class="hero-badge">⚖️ المقارنة</div>
+    <div class="page-title">قارن بين المجالات</div>
+    <p class="page-sub">اختر مجالين من الصفحة الرئيسية أو من هنا لمقارنتهما</p>
+  </div>
+  <div class="compare-page">
+    <p class="compare-instruction">اضغط على "أضف للمقارنة" في أي بطاقة — أو اختر من هنا:</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:24px;" id="quickCompareSelect">
+      <button class="compare-btn" onclick="toggleCompare('cyber','الأمن السيبراني',this)" style="font-size:.8rem;padding:7px 14px">🛡️ أمن سيبراني</button>
+      <button class="compare-btn" onclick="toggleCompare('sw','تطوير البرمجيات',this)" style="font-size:.8rem;padding:7px 14px">💻 تطوير برمجيات</button>
+      <button class="compare-btn" onclick="toggleCompare('ai','الذكاء الاصطناعي',this)" style="font-size:.8rem;padding:7px 14px">🧠 ذكاء اصطناعي</button>
+      <button class="compare-btn" onclick="toggleCompare('ds','علم البيانات',this)" style="font-size:.8rem;padding:7px 14px">📊 علم البيانات</button>
+      <button class="compare-btn" onclick="toggleCompare('cloud','الحوسبة السحابية',this)" style="font-size:.8rem;padding:7px 14px">☁️ سحابية</button>
+      <button class="compare-btn" onclick="toggleCompare('ux','تصميم UI/UX',this)" style="font-size:.8rem;padding:7px 14px">🎨 UI/UX</button>
+      <button class="compare-btn" onclick="toggleCompare('net','الشبكات',this)" style="font-size:.8rem;padding:7px 14px">🌐 شبكات</button>
+      <button class="compare-btn" onclick="toggleCompare('bc','البلوك تشين',this)" style="font-size:.8rem;padding:7px 14px">⛓️ بلوك تشين</button>
+    </div>
+    <div class="selected-compare">
+      <div class="selected-box" id="cmpBox1"><div class="selected-name" id="cmp1name">اختر المجال الأول</div><div class="selected-clear" onclick="removeCompare(0)" style="display:none" id="cmp1clear">✕ إزالة</div></div>
+      <div class="vs-badge">VS</div>
+      <div class="selected-box empty" id="cmpBox2"><div class="selected-name" id="cmp2name">اختر المجال الثاني</div><div class="selected-clear" onclick="removeCompare(1)" style="display:none" id="cmp2clear">✕ إزالة</div></div>
+    </div>
+    <div id="compareResult" style="display:none">
+      <div class="compare-table-wrap">
+        <table class="compare-table">
+          <thead><tr><th>المعيار</th><th id="th1">—</th><th id="th2">—</th></tr></thead>
+          <tbody id="compareBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div id="compareHint" style="text-align:center;color:var(--muted);margin-top:30px;font-size:.88rem;">👆 اختر مجالين لتبدأ المقارنة</div>
+  </div>
+</div>
+
+<!-- ==================== QUIZ PAGE ==================== -->
+<div class="page" id="page-quiz">
+  <div class="page-header">
+    <div class="hero-badge">🎯 اكتشف مجالك</div>
+    <div class="page-title">أنهي مجال يناسبك؟</div>
+    <p class="page-sub">10 أسئلة وجيزة — والنتيجة توصيك بأنسب مجال ليك</p>
+  </div>
+  <div class="quiz-wrap">
+    <div class="quiz-card" id="quizCard">
+      <div class="quiz-progress"><div class="quiz-progress-fill" id="quizProgress" style="width:10%"></div></div>
+      <div class="quiz-q-num" id="quizQNum">سؤال 1 من 10</div>
+      <div class="quiz-question" id="quizQuestion"></div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-nav">
+        <button class="quiz-btn secondary" onclick="quizBack()" id="quizBackBtn" disabled>السابق</button>
+        <button class="quiz-btn" onclick="quizNext()" id="quizNextBtn" disabled>التالي</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== BIG TABLE PAGE ==================== -->
+<div class="page" id="page-table">
+  <div class="page-header">
+    <div class="hero-badge">📊 جدول المقارنة الشامل</div>
+    <div class="page-title">كل المجالات دفعة واحدة</div>
+    <p class="page-sub">مقارنة شاملة بالأرقام لمساعدتك على الاختيار</p>
+  </div>
+  <div class="big-table-wrap">
+    <table class="big-table">
+      <thead>
+        <tr>
+          <th>المجال</th>
+          <th>صعوبة الدخول</th>
+          <th>الراتب (مصر)</th>
+          <th>الراتب (عالمياً)</th>
+          <th>الطلب الآن</th>
+          <th>تأثير AI</th>
+          <th>مستقبل 5 سنوات</th>
+          <th>وقت التوظيف</th>
+          <th>Work Remote</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>🛡️ الأمن السيبراني</td><td><div class="dot-row"><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot"></div><div class="dot"></div></div></td><td>15–60K ج.م</td><td>$80–180K</td><td>🔥🔥🔥</td><td><span class="ai-impact-cell ai-boost">يعززه</span></td><td>⭐⭐⭐⭐⭐</td><td>6–12 شهر</td><td>✅ سهل</td></tr>
+        <tr><td>💻 تطوير البرمجيات</td><td><div class="dot-row"><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot"></div><div class="dot"></div></div></td><td>12–55K ج.م</td><td>$70–200K</td><td>🔥🔥🔥</td><td><span class="ai-impact-cell" style="background:rgba(245,158,11,.15);color:var(--accent3)">يُغيره</span></td><td>⭐⭐⭐⭐</td><td>6–18 شهر</td><td>✅ سهل</td></tr>
+        <tr><td>🧠 الذكاء الاصطناعي</td><td><div class="dot-row"><div class="dot filled red"></div><div class="dot filled red"></div><div class="dot filled red"></div><div class="dot filled red"></div><div class="dot filled red"></div></div></td><td>20–80K ج.م</td><td>$120–500K</td><td>🔥🔥🔥🔥</td><td><span class="ai-impact-cell ai-boost">هو نفسه</span></td><td>⭐⭐⭐⭐⭐</td><td>12–24 شهر</td><td>✅ سهل</td></tr>
+        <tr><td>📊 علم البيانات</td><td><div class="dot-row"><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot"></div></div></td><td>14–50K ج.م</td><td>$85–180K</td><td>🔥🔥🔥</td><td><span class="ai-impact-cell" style="background:rgba(245,158,11,.15);color:var(--accent3)">يُسرّعه</span></td><td>⭐⭐⭐⭐</td><td>8–18 شهر</td><td>✅ سهل</td></tr>
+        <tr><td>☁️ الحوسبة السحابية</td><td><div class="dot-row"><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot"></div><div class="dot"></div></div></td><td>16–55K ج.م</td><td>$90–180K</td><td>🔥🔥🔥</td><td><span class="ai-impact-cell ai-boost">يعززه</span></td><td>⭐⭐⭐⭐⭐</td><td>6–12 شهر</td><td>✅ سهل</td></tr>
+        <tr><td>🎨 تصميم UI/UX</td><td><div class="dot-row"><div class="dot filled green"></div><div class="dot filled green"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></td><td>8–35K ج.م</td><td>$65–150K</td><td>🔥🔥</td><td><span class="ai-impact-cell" style="background:rgba(245,158,11,.15);color:var(--accent3)">يُنافسه</span></td><td>⭐⭐⭐</td><td>6–12 شهر</td><td>✅ سهل</td></tr>
+        <tr><td>🌐 الشبكات</td><td><div class="dot-row"><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot"></div><div class="dot"></div></div></td><td>10–40K ج.م</td><td>$60–150K</td><td>🔥🔥</td><td><span class="ai-impact-cell" style="background:rgba(245,158,11,.15);color:var(--accent3)">يُأتمته</span></td><td>⭐⭐⭐</td><td>6–12 شهر</td><td>⚠️ جزئي</td></tr>
+        <tr><td>⛓️ البلوك تشين</td><td><div class="dot-row"><div class="dot filled red"></div><div class="dot filled red"></div><div class="dot filled red"></div><div class="dot filled red"></div><div class="dot"></div></div></td><td>20–80K ج.م</td><td>$100–250K</td><td>🔥 متقلب</td><td><span class="ai-impact-cell ai-boost">يُكمله</span></td><td>⭐⭐⭐</td><td>12–24 شهر</td><td>✅ سهل</td></tr>
+        <tr><td>📡 إنترنت الأشياء</td><td><div class="dot-row"><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot"></div></div></td><td>12–45K ج.م</td><td>$80–160K</td><td>🔥🔥🔥</td><td><span class="ai-impact-cell ai-boost">يعززه</span></td><td>⭐⭐⭐⭐⭐</td><td>12–18 شهر</td><td>⚠️ جزئي</td></tr>
+        <tr><td>🔧 الأجهزة والمعالجات</td><td><div class="dot-row"><div class="dot filled red"></div><div class="dot filled red"></div><div class="dot filled red"></div><div class="dot filled red"></div><div class="dot filled red"></div></div></td><td>18–70K ج.م</td><td>$100–300K</td><td>🔥🔥🔥🔥</td><td><span class="ai-impact-cell ai-boost">يُضاعفه</span></td><td>⭐⭐⭐⭐⭐</td><td>4–6 سنوات</td><td>❌ نادر</td></tr>
+        <tr><td>🤖 الروبوتات</td><td><div class="dot-row"><div class="dot filled red"></div><div class="dot filled red"></div><div class="dot filled red"></div><div class="dot filled red"></div><div class="dot"></div></div></td><td>15–55K ج.م</td><td>$85–180K</td><td>🔥🔥🔥</td><td><span class="ai-impact-cell ai-boost">يُطوّره</span></td><td>⭐⭐⭐⭐⭐</td><td>2–4 سنوات</td><td>❌ نادر</td></tr>
+        <tr><td>⚛️ الحوسبة الكمومية</td><td><div class="dot-row"><div class="dot filled red"></div><div class="dot filled red"></div><div class="dot filled red"></div><div class="dot filled red"></div><div class="dot filled red"></div></div></td><td>نادر</td><td>$120–300K</td><td>🔬 بحثي</td><td><span class="ai-impact-cell ai-boost">يتكامل</span></td><td>⭐⭐⭐⭐</td><td>6+ سنوات</td><td>✅ جزئي</td></tr>
+        <tr><td>🥽 AR/VR/XR</td><td><div class="dot-row"><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot filled orange"></div><div class="dot"></div><div class="dot"></div></div></td><td>12–45K ج.م</td><td>$80–170K</td><td>🔥🔥</td><td><span class="ai-impact-cell ai-boost">يُثريه</span></td><td>⭐⭐⭐⭐</td><td>12–24 شهر</td><td>✅ سهل</td></tr>
+      </tbody>
+    </table>
+    <p style="text-align:center;color:var(--muted);font-size:.75rem;margin-top:16px">* الرواتب تقريبية وتتفاوت حسب الخبرة، الشركة، والموقع الجغرافي</p>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">EquiTech ⚡</div>
+  <p>صُنع بشغف بواسطة <strong style="color:var(--text)">Adel El-Shaf3y</strong></p>
+  <p style="margin-top:6px">جميع البيانات مبنية على أبحاث سوق العمل لعام 2025–2026</p>
+</footer>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+// ===== PAGE NAVIGATION =====
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (el) el.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ===== CARD TABS =====
+function switchTab(el, cardId, tabId) {
+  const card = el.closest('.field-card') || el.closest('.roadmap-container');
+  if (!card) return;
+  card.querySelectorAll('.card-tab').forEach(t => t.classList.remove('active'));
+  card.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const target = document.getElementById(cardId + '-' + tabId);
+  if (target) target.classList.add('active');
+}
+
+// ===== SEARCH & FILTER =====
+let activeTag = 'all';
+function filterCards() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  document.querySelectorAll('.field-card').forEach(card => {
+    const text = card.innerText.toLowerCase();
+    const tags = card.getAttribute('data-tags') || '';
+    const matchSearch = !q || text.includes(q);
+    const matchTag = activeTag === 'all' || tags.includes(activeTag);
+    card.classList.toggle('hidden', !(matchSearch && matchTag));
+  });
+}
+function filterByTag(tag, el) {
+  activeTag = tag;
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  filterCards();
+}
+
+// ===== COMPARE =====
+let compareList = [];
+const compareData = {
+  cyber: { name:'الأمن السيبراني', icon:'🛡️', salary_eg:'15–60K', salary_world:'$80–180K', difficulty:3, demand:5, ai_impact:'يعززه 🚀', future:5, time:'6-12 شهر', remote:true, pros:'طلب عالي، راتب ممتاز، مجال دائم', cons:'ضغط عالي، مسؤولية كبيرة' },
+  sw: { name:'تطوير البرمجيات', icon:'💻', salary_eg:'12–55K', salary_world:'$70–200K', difficulty:3, demand:5, ai_impact:'يُغيره ⚡', future:4, time:'6-18 شهر', remote:true, pros:'فرص لا نهائية، Freelance سهل', cons:'منافسة عالية، AI يغير الدور' },
+  ai: { name:'الذكاء الاصطناعي', icon:'🧠', salary_eg:'20–80K', salary_world:'$120–500K', difficulty:5, demand:5, ai_impact:'هو نفسه 🤖', future:5, time:'12-24 شهر', remote:true, pros:'أعلى الرواتب، تأثير ضخم', cons:'رياضيات صعبة، يتطلب دكتوراه أحياناً' },
+  ds: { name:'علم البيانات', icon:'📊', salary_eg:'14–50K', salary_world:'$85–180K', difficulty:4, demand:4, ai_impact:'يُسرّعه ⚡', future:4, time:'8-18 شهر', remote:true, pros:'يُطبّق في أي صناعة', cons:'80% من الوقت تنظيف بيانات' },
+  cloud: { name:'الحوسبة السحابية', icon:'☁️', salary_eg:'16–55K', salary_world:'$90–180K', difficulty:3, demand:5, ai_impact:'يعززه 🚀', future:5, time:'6-12 شهر', remote:true, pros:'شهادات معترف بها، طلب كبير', cons:'تكاليف تدريب عالية' },
+  ux: { name:'تصميم UI/UX', icon:'🎨', salary_eg:'8–35K', salary_world:'$65–150K', difficulty:2, demand:3, ai_impact:'يُنافسه ⚠️', future:3, time:'6-12 شهر', remote:true, pros:'إبداع، Freelance سهل', cons:'ذاتية في التقييم' },
+  net: { name:'الشبكات', icon:'🌐', salary_eg:'10–40K', salary_world:'$60–150K', difficulty:3, demand:3, ai_impact:'يُأتمته ⚠️', future:3, time:'6-12 شهر', remote:false, pros:'استقرار وظيفي', cons:'AI يُأتمت جزء كبير' },
+  bc: { name:'البلوك تشين', icon:'⛓️', salary_eg:'20–80K', salary_world:'$100–250K', difficulty:4, demand:2, ai_impact:'يُكمله', future:3, time:'12-24 شهر', remote:true, pros:'رواتب ضخمة', cons:'سوق متقلب جداً' },
+};
+
+function toggleCompare(id, name, btn) {
+  const idx = compareList.findIndex(c => c.id === id);
+  if (idx > -1) {
+    compareList.splice(idx, 1);
+    document.querySelectorAll(`[onclick*="toggleCompare('${id}'"]`).forEach(b => b.classList.remove('selected'));
+  } else {
+    if (compareList.length >= 2) { alert('اختر مجالين فقط — أزل أحدهما أولاً'); return; }
+    compareList.push({ id, name });
+    document.querySelectorAll(`[onclick*="'${id}'"]`).forEach(b => b.classList.add('selected'));
+  }
+  updateCompareUI();
+}
+function removeCompare(i) {
+  const item = compareList[i];
+  if (item) {
+    document.querySelectorAll(`[onclick*="'${item.id}'"]`).forEach(b => b.classList.remove('selected'));
+    compareList.splice(i, 1);
+    updateCompareUI();
+  }
+}
+function updateCompareUI() {
+  const bar = document.getElementById('compareBar');
+  const status = document.getElementById('compareStatus');
+  bar.style.display = compareList.length > 0 ? 'block' : 'none';
+  status.textContent = compareList.length === 1 ? `✅ تم اختيار: ${compareList[0].name} — اختر مجالاً ثانياً` : compareList.length === 2 ? `⚖️ ${compareList[0].name} vs ${compareList[1].name} — جاهز للمقارنة!` : '';
+
+  // update compare page boxes
+  const c1 = compareList[0], c2 = compareList[1];
+  document.getElementById('cmp1name').textContent = c1 ? c1.name : 'اختر المجال الأول';
+  document.getElementById('cmp2name').textContent = c2 ? c2.name : 'اختر المجال الثاني';
+  document.getElementById('cmp1clear').style.display = c1 ? 'block' : 'none';
+  document.getElementById('cmp2clear').style.display = c2 ? 'block' : 'none';
+  document.getElementById('cmpBox2').classList.toggle('empty', !c2);
+  if (compareList.length === 2) renderCompareTable();
+  else { document.getElementById('compareResult').style.display = 'none'; document.getElementById('compareHint').style.display = 'block'; }
+}
+function goCompare() { showPage('compare', document.querySelector('.nav-link:nth-child(3)')); if (compareList.length === 2) renderCompareTable(); }
+function clearCompare() { compareList.forEach(c => document.querySelectorAll(`[onclick*="'${c.id}'"]`).forEach(b => b.classList.remove('selected'))); compareList = []; updateCompareUI(); }
+
+function renderCompareTable() {
+  const d1 = compareData[compareList[0].id], d2 = compareData[compareList[1].id];
+  if (!d1 || !d2) return;
+  document.getElementById('th1').textContent = d1.icon + ' ' + d1.name;
+  document.getElementById('th2').textContent = d2.icon + ' ' + d2.name;
+  const rows = [
+    ['💰 الراتب في مصر', d1.salary_eg + ' ج.م', d2.salary_eg + ' ج.م', d1.difficulty < d2.difficulty ? 0 : 1],
+    ['🌍 الراتب عالمياً', d1.salary_world, d2.salary_world, null],
+    ['📈 الطلب في السوق', '⭐'.repeat(d1.demand), '⭐'.repeat(d2.demand), d1.demand > d2.demand ? 0 : 1],
+    ['🧗 صعوبة الدخول', '●'.repeat(d1.difficulty) + '○'.repeat(5-d1.difficulty), '●'.repeat(d2.difficulty) + '○'.repeat(5-d2.difficulty), d1.difficulty < d2.difficulty ? 0 : 1],
+    ['🤖 تأثير AI', d1.ai_impact, d2.ai_impact, null],
+    ['🚀 مستقبل 5 سنوات', '⭐'.repeat(d1.future), '⭐'.repeat(d2.future), d1.future > d2.future ? 0 : 1],
+    ['⏱️ وقت للتوظيف', d1.time, d2.time, null],
+    ['🏠 Work Remote', d1.remote ? '✅ سهل' : '⚠️ صعب', d2.remote ? '✅ سهل' : '⚠️ صعب', d1.remote && !d2.remote ? 0 : !d1.remote && d2.remote ? 1 : null],
+    ['✅ أبرز المميزات', d1.pros, d2.pros, null],
+    ['⚠️ أبرز العيوب', d1.cons, d2.cons, null],
+  ];
+  const tbody = document.getElementById('compareBody');
+  tbody.innerHTML = rows.map(([label, v1, v2, winner]) => `
+    <tr>
+      <td class="row-label">${label}</td>
+      <td class="${winner === 0 ? 'compare-winner' : ''}">${v1}</td>
+      <td class="${winner === 1 ? 'compare-winner' : ''}">${v2}</td>
+    </tr>`).join('');
+  document.getElementById('compareResult').style.display = 'block';
+  document.getElementById('compareHint').style.display = 'none';
+}
+
+// ===== ROADMAP =====
+function showRoadmap(id, el) {
+  document.querySelectorAll('.roadmap-container').forEach(r => r.classList.remove('active'));
+  document.querySelectorAll('.rm-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
+
+// ===== QUIZ =====
+const questions = [
+  { q: 'لما تشوف مشكلة تقنية — إيه أول حاجة بتيجي في دماغك؟', opts: [{t:'أحاول أفهم كيف المشكلة اتعملت', icon:'🔍', scores:{cyber:2,ai:1}},{t:'أدور على solution وأطبقه بسرعة', icon:'⚡', scores:{sw:2,cloud:1}},{t:'أحلل البيانات وأشوف الأنماط', icon:'📊', scores:{ds:2,ai:1}},{t:'أفكر في كيف أمنع المشكلة دي من تتكرر', icon:'🛡️', scores:{cyber:2,net:1}}] },
+  { q: 'أي بيئة عمل تحسك بأنك أكثر إنتاجية؟', opts: [{t:'أشتغل لوحدي بعمق وتركيز', icon:'🎧', scores:{ai:2,ds:1}},{t:'أتعاون مع فريق وأشارك أفكار', icon:'👥', scores:{sw:2,ux:1}},{t:'أتعامل مع أنظمة معقدة وأحلها', icon:'🔧', scores:{cyber:1,cloud:2}},{t:'أبتكر وأصمم حاجات جديدة', icon:'🎨', scores:{ux:2,ai:1}}] },
+  { q: 'أي من المواضيع دي بتجذبك أكتر؟', opts: [{t:'الأمن والخصوصية وحماية البيانات', icon:'🔐', scores:{cyber:3}},{t:'بناء تطبيقات ومواقع ويب', icon:'🌐', scores:{sw:3}},{t:'البيانات الضخمة والتنبؤ بالمستقبل', icon:'🔮', scores:{ds:2,ai:1}},{t:'الذكاء الاصطناعي ومحاكاة التفكير', icon:'🧠', scores:{ai:3}}] },
+  { q: 'لو عندك خيار تتعلم حاجة جديدة، أيهم تختار؟', opts: [{t:'كيف أخترق أنظمة (أخلاقياً) وأكشف ثغرات', icon:'🎯', scores:{cyber:3}},{t:'كيف أبني تطبيق Mobile من الصفر', icon:'📱', scores:{sw:3}},{t:'كيف أدرب نموذج AI على بيانات', icon:'🤖', scores:{ai:3}},{t:'كيف أصمم تجربة مستخدم مثالية', icon:'✏️', scores:{ux:3}}] },
+  { q: 'إيه أكتر حاجة بتحفزك في شغلك؟', opts: [{t:'الإحساس إن أنا محمّي الناس من خطر', icon:'🛡️', scores:{cyber:2}},{t:'لما حاجة أعملتها تشتغل وتبهج الناس', icon:'😊', scores:{sw:2,ux:1}},{t:'اكتشاف insight من البيانات محدش شافه', icon:'💡', scores:{ds:2,ai:1}},{t:'فكرة مبتكرة تحل مشكلة حقيقية', icon:'🚀', scores:{ai:1,ux:1,sw:1}}] },
+  { q: 'الرياضيات والإحصاء — إيه علاقتك بيهم؟', opts: [{t:'أحبهم وبرتاح معاهم', icon:'❤️', scores:{ai:3,ds:2}},{t:'مش رهيب فيهم بس مش مشكلة', icon:'😐', scores:{ds:1,cyber:1}},{t:'بفضّل أبعد عنهم قد ما أقدر', icon:'😅', scores:{sw:1,ux:2}},{t:'بستمتع بالمنطق أكتر من الأرقام', icon:'🧩', scores:{cyber:2,sw:1}}] },
+  { q: 'ما هو هدفك المالي الأساسي؟', opts: [{t:'أعيش كريم في بلدي', icon:'🏠', scores:{sw:1,net:1}},{t:'أشتغل Remote وأكسب دولار', icon:'💻', scores:{sw:2,ux:2,ai:1}},{t:'أسافر ويكون راتبي ضخم جداً', icon:'✈️', scores:{ai:2,cyber:2}},{t:'أبني شركتي الخاصة', icon:'🏢', scores:{sw:2,ai:1}}] },
+  { q: 'الإبداع في شغلك — مهم قد إيه؟', opts: [{t:'الإبداع هو أهم حاجة بالنسبالي', icon:'🎨', scores:{ux:3}},{t:'أحب التوازن بين الإبداع والمنطق', icon:'⚖️', scores:{sw:2,ai:1}},{t:'أفضّل المنطق الصارم والحلول المضمونة', icon:'🔢', scores:{cyber:2,ds:1}},{t:'مش فارق معايا طالما الشغل مؤثر', icon:'🎯', scores:{ai:1,cloud:1}}] },
+  { q: 'تحب تشتغل على حاجة اللي نتيجتها تتشاف إمتى؟', opts: [{t:'فوري — أشوف نتيجة شغلي على طول', icon:'⚡', scores:{ux:2,sw:2}},{t:'على المدى المتوسط (أسابيع-أشهر)', icon:'📅', scores:{ds:2,cloud:1}},{t:'طويل الأمد — أبني حاجة عظيمة', icon:'🏗️', scores:{ai:2,cyber:1}},{t:'مش بهتم بالوقت — بهتم بالعمق', icon:'🔬', scores:{ai:1,ds:1}}] },
+  { q: 'لو بدأت رحلتك من الصفر، أيهم يصف أسلوبك؟', opts: [{t:'أتعلم بشكل منظم خطوة خطوة', icon:'📚', scores:{cloud:2,net:1}},{t:'أتعلم بممارسة وتجربة وخطأ', icon:'🧪', scores:{sw:2,cyber:1}},{t:'أبدأ بمشروع حقيقي وأتعلم منه', icon:'🚀', scores:{sw:1,ux:2}},{t:'أقرأ البحوث والنظريات أولاً', icon:'📖', scores:{ai:3,ds:1}}] },
+];
+
+const fieldNames = {
+  cyber: { name:'الأمن السيبراني', icon:'🛡️', desc:'شخصيتك التحليلية المنطقية وحبك للأمن والخصوصية تجعلك مثالياً للأمن السيبراني. ستجد نفسك في اكتشاف الثغرات وحماية الأنظمة من الهجمات. مجال يعطيك تحدياً دائماً ورواتب ممتازة وطلباً لا ينتهي.', tags:['Penetration Testing','SOC Analyst','CISSP','Bug Bounty'] },
+  sw: { name:'تطوير البرمجيات', icon:'💻', desc:'حبك للبناء العملي ورؤية النتائج الفورية يجعلك متطوراً برمجياً بامتياز. قدرتك على حل المشكلات وتحويل الأفكار لكود سيفتح أمامك آفاق لا نهائية — من تطبيقات الهاتف للأنظمة الضخمة.', tags:['Full Stack','React','Python','Mobile Dev'] },
+  ai: { name:'الذكاء الاصطناعي', icon:'🧠', desc:'تفكيرك العلمي العميق وحبك للرياضيات والتحليل يؤهلك لأعلى مجال نمواً في التاريخ. ستبني الأنظمة التي ستُغير كيف يعمل العالم. رواتب استثنائية وتأثير لا محدود.', tags:['ML Engineer','Deep Learning','NLP','Computer Vision'] },
+  ds: { name:'علم البيانات', icon:'📊', desc:'قدرتك على قراءة الأنماط واستخراج المعنى من الفوضى تجعلك عالم بيانات مميز. ستكون من يحوّل أرقام فارغة لقرارات تغير مسار شركات بأكملها.', tags:['Data Analyst','SQL','Power BI','Tableau'] },
+  cloud: { name:'الحوسبة السحابية', icon:'☁️', desc:'أسلوبك المنظم وحبك للأنظمة الكبيرة يجعلك مهندس سحاب رائع. ستبني البنية التحتية التي تشغّل الإنترنت وتدير مليارات المستخدمين.', tags:['AWS','DevOps','Kubernetes','Terraform'] },
+  ux: { name:'تصميم UI/UX', icon:'🎨', desc:'إبداعك الفطري وتعاطفك مع المستخدمين يجعلك مصمم تجربة استثنائي. ستصنع المنتجات التي يحبها الناس ويعودون إليها. مجال يجمع الفن بعلم النفس.', tags:['Figma','UX Research','Product Design','Prototyping'] },
+  net: { name:'الشبكات', icon:'🌐', desc:'منهجيتك وحبك للأنظمة المتماسكة يجعلانك مهندس شبكات موثوقاً. ستكون العمود الفقري الذي يعتمد عليه كل شيء رقمي.', tags:['CCNA','CCNP','Network Security','5G'] },
+};
+
+let quizAnswers = [], quizStep = 0, quizSelected = null;
+function initQuiz() {
+  quizAnswers = [];
+  quizStep = 0;
+  quizSelected = null;
+  renderQuestion();
+}
+function renderQuestion() {
+  const q = questions[quizStep];
+  document.getElementById('quizQNum').textContent = `سؤال ${quizStep+1} من ${questions.length}`;
+  document.getElementById('quizQuestion').textContent = q.q;
+  document.getElementById('quizProgress').style.width = ((quizStep+1)/questions.length*100) + '%';
+  document.getElementById('quizOptions').innerHTML = q.opts.map((o,i) =>
+    `<div class="quiz-opt${quizAnswers[quizStep]===i?' selected':''}" onclick="selectOpt(${i},this)">
+      <span class="quiz-opt-icon">${o.icon}</span>${o.t}</div>`).join('');
+  document.getElementById('quizBackBtn').disabled = quizStep === 0;
+  document.getElementById('quizNextBtn').disabled = quizAnswers[quizStep] === undefined;
+  document.getElementById('quizNextBtn').textContent = quizStep === questions.length-1 ? 'النتيجة 🎯' : 'التالي';
+  document.getElementById('quizCard').innerHTML = document.getElementById('quizCard').innerHTML; // force re-render
+  initQuizCard();
+}
+function initQuizCard() {
+  const q = questions[quizStep];
+  document.getElementById('quizQNum').textContent = `سؤال ${quizStep+1} من ${questions.length}`;
+  document.getElementById('quizQuestion').textContent = q.q;
+  document.getElementById('quizProgress').style.width = ((quizStep+1)/questions.length*100) + '%';
+  const optsEl = document.getElementById('quizOptions');
+  optsEl.innerHTML = q.opts.map((o,i) =>
+    `<div class="quiz-opt${quizAnswers[quizStep]===i?' selected':''}" onclick="selectOpt(${i},this)">
+      <span class="quiz-opt-icon">${o.icon}</span>${o.t}</div>`).join('');
+  document.getElementById('quizBackBtn').disabled = quizStep === 0;
+  document.getElementById('quizNextBtn').disabled = quizAnswers[quizStep] === undefined;
+  document.getElementById('quizNextBtn').textContent = quizStep === questions.length-1 ? 'النتيجة 🎯' : 'التالي';
+}
+function selectOpt(i, el) {
+  document.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  quizAnswers[quizStep] = i;
+  document.getElementById('quizNextBtn').disabled = false;
+}
+function quizNext() {
+  if (quizAnswers[quizStep] === undefined) return;
+  if (quizStep === questions.length - 1) { showResult(); return; }
+  quizStep++;
+  initQuizCard();
+}
+function quizBack() { if (quizStep > 0) { quizStep--; initQuizCard(); } }
+function showResult() {
+  const scores = {};
+  questions.forEach((q, qi) => {
+    const ansIdx = quizAnswers[qi];
+    if (ansIdx === undefined) return;
+    const s = q.opts[ansIdx].scores;
+    Object.entries(s).forEach(([k,v]) => scores[k] = (scores[k]||0) + v);
+  });
+  const top = Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
+  const res = fieldNames[top] || fieldNames.sw;
+  const card = document.getElementById('quizCard');
+  card.innerHTML = `
+    <div class="quiz-result">
+      <div class="result-icon">${res.icon}</div>
+      <div class="result-title">المجال الأنسب ليك هو</div>
+      <div class="result-field">${res.name}</div>
+      <div class="result-desc">${res.desc}</div>
+      <div class="result-tags">${res.tags.map(t=>`<span class="result-tag">${t}</span>`).join('')}</div>
+      <button class="quiz-btn" onclick="showPage('roadmap',document.querySelector('.nav-link:nth-child(2)'));setTimeout(()=>document.querySelector('.rm-btn').click(),100)" style="margin-bottom:12px">🗺️ شوف Roadmap المجال</button><br>
+      <button class="quiz-restart" onclick="initQuiz()">🔄 جرب تاني</button>
+    </div>`;
+}
+
+// ===== STAGGER ANIMATION =====
+document.querySelectorAll('.field-card').forEach((card, i) => {
+  card.style.animationDelay = (i * 0.07) + 's';
+});
+
+// Init quiz on load
+initQuiz();
+</script>
+</body>
+</html>
